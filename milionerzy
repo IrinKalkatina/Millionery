@@ -4,9 +4,9 @@ import os
 
 ######################################################
 lista_pytan = [["Jakiego koloru były smerfy?","A. niebieskiego", "B. różowego", "C. czerwony", "D. zielonego","A. niebieskiego", "A", "a"],
-["Która z planet ma pierścienie?", "A. Pluton", "B. Saturn", "C. Neptun","D. Merkury", "B", "b"], 
+["Która z planet ma pierścienie?", "A. Pluton", "B. Saturn", "C. Neptun","D. Merkury", "B", "b"],
 ["Jaka część mowy odpowiada na pytania: kto, co?", "A. przymiotnik", " B. czasownik", "C. rzeczownik", "D. przysłówek","C.rzeczownik", "C", "c"],
-[" Kogo uratowała Calineczka?" " A. kreta", "B. jaskółkę", "D. pingwina" , "D. żabę","B. jaskółkę", "B", "b"], 
+[" Kogo uratowała Calineczka?" " A. kreta", "B. jaskółkę", "D. pingwina" , "D. żabę","B. jaskółkę", "B", "b"],
 ["Jaka legenda jest związana z Warszawą?", "A. o smoku wawelskim", "B. o Popielu", "C. o Wandzie, co nie chciała Niemca",  "D. o syrence", "D. o syrence", "D", "d"],
 ["Kto ma łeb obdarty?", "A. kto późno przychodzi", "B. kto jest krótko ostrzyżony", "C. kto gra w karty",  "D. kto ma nos zadarty", "C. kto gra w karty", "C", "c"],
 ["Co nie jest nazwą stylu pływackiego?", "A. rekin",  "B. kraul", "C. żabka" "D. delfin", "A.rekin", "A", "a"],
@@ -59,6 +59,41 @@ def kolo_pol_na_pol(lista_pytan, wylos_nr_pytania):     #kolo przyjmuje z argume
         else:
             print(lista_pytan[wylos_nr_pytania][wylos_nr_2_odpowiedzi], lista_pytan[wylos_nr_pytania][5])  #prawdziwa odp na końcu
 ###############################################################################################################################
+
+def publicznosc (lista_pytan, numer_pytania): ####################koło publicznosc
+    licznik1=0
+    licznik2=0
+    licznik3=0
+    licznik4=0
+    for i in range(0,100):
+        wylosowana=random.randint(1,100)
+        if wylosowana>0 and wylosowana<=31:
+            licznik1 +=1
+        elif wylosowana >31 and wylosowana<=54:
+            licznik2 +=1
+        elif wylosowana>54 and wylosowana<=77:
+            licznik3 +=1
+        elif wylosowana>77:
+            licznik4 +=1
+    list= []
+    list.append(licznik1)
+    list.append(licznik2)
+    list.append(licznik3)
+    list.append(licznik4)
+    list.sort()
+    if lista_pytan[numer_pytania][5]== lista_pytan[numer_pytania][1]:
+        print("Publiczność zagłosowała na  odpowiedź ", lista_pytan[numer_pytania][1], list[-1], "%")
+        print ("Odpowiedź ", lista_pytan[numer_pytania][2], "ma ", list[0], "% odpowiedź " ,lista_pytan[numer_pytania][3], list[1],"% odpowiedź ", lista_pytan[numer_pytania][4], list[2], "%")
+    elif lista_pytan[numer_pytania][5]== lista_pytan[numer_pytania][2]:
+        print("Publiczność zagłosowała na odpowiedź ", lista_pytan[numer_pytania][2], list[-1], "%")
+        print("Odpowiedź ", lista_pytan[numer_pytania][1], list[0], "% odpowiedź ", lista_pytan[numer_pytania][3], list[1], "% odpowiedź", lista_pytan[numer_pytania][4], list[2], "%")
+    elif lista_pytan[numer_pytania][5]== lista_pytan[numer_pytania][3]:
+        print ("Publiczność zagłosowała na odpowiedź ", lista_pytan[numer_pytania][3], list[-1], "%")
+        print ("Odpowiedź ", lista_pytan[numer_pytania][1], list[0], "% odpowiedź ", lista_pytan[numer_pytania][2], list[1], "% odpowiedź", lista_pytan [numer_pytania][4], list[2], "%")
+    elif lista_pytan[numer_pytania][5]== lista_pytan[numer_pytania][4]:
+        print("Publiczność wybrała odpowiedź ", lista_pytan[numer_pytania][4], list[-1], "%")
+        print ("Odpowiedź ", lista_pytan[numer_pytania][1], list[0], "% odpowiedź ", lista_pytan[numer_pytania][2], list[1], " % odpowiedź", lista_pytan [numer_pytania][3], list[2], "%")
+###########################################################################3
 def wyswietlanie_pytania(lista_pytan,numer_pytania):
     wyswietl_prog()
     print(lista_pytan[numer_pytania][0])  #printowanie pytania - z listy (używając wylocowany numer porządkowy)
@@ -91,7 +126,7 @@ def przyjmowanie_odp(lista_pytan,numer_pytania):
         elif wybor_uzytkownika =='2':
             kolo_pol_na_pol(lista_pytan,numer_pytania)
         elif wybor_uzytkownika =='3':
-            pass
+            publicznosc(lista_pytan,numer_pytania)
         else:
             os.system('cls')
             print("Koniec gry.\nOdchodzisz z kwotą:",wskaznik_progu_gw)
