@@ -2,6 +2,9 @@ import random
 import time
 import os
 
+from colorama import init, Style
+from termcolor import colored
+init()
 ######################################################
 lista_pytan = [
 ["Jakiego koloru były smerfy?","A. niebieskiego", "B. różowego", "C. czerwony", "D. zielonego","A. niebieskiego", "A", "a"],
@@ -60,7 +63,6 @@ def kolo_pol_na_pol(lista_pytan, wylos_nr_pytania):     #kolo przyjmuje z argume
         else:
             print(lista_pytan[wylos_nr_pytania][wylos_nr_2_odpowiedzi], lista_pytan[wylos_nr_pytania][5])  #prawdziwa odp na końcu
 ###############################################################################################################################
-
 def publicznosc (lista_pytan, numer_pytania): ####################koło publicznosc
     licznik1=0
     licznik2=0
@@ -83,22 +85,25 @@ def publicznosc (lista_pytan, numer_pytania): ####################koło publiczn
     list.append(licznik4)
     list.sort()
     if lista_pytan[numer_pytania][5]== lista_pytan[numer_pytania][1]:
-        print("Publiczność zagłosowała na  odpowiedź ", lista_pytan[numer_pytania][1], list[-1], "%")
-        print ("Odpowiedź ", lista_pytan[numer_pytania][2], "ma ", list[0], "% odpowiedź " ,lista_pytan[numer_pytania][3], list[1],"% odpowiedź ", lista_pytan[numer_pytania][4], list[2], "%")
+        print ("Publiczność zagłosowała na  odpowiedź", lista_pytan[numer_pytania][1],"-", list[-1], "%.")
+        print ("odpowiedź", lista_pytan[numer_pytania][2], "-", list[0], "%;  odpowiedź" ,lista_pytan[numer_pytania][3], "-", list[1],"%;  odpowiedź", lista_pytan[numer_pytania][4], "-", list[2], "%;")
     elif lista_pytan[numer_pytania][5]== lista_pytan[numer_pytania][2]:
-        print("Publiczność zagłosowała na odpowiedź ", lista_pytan[numer_pytania][2], list[-1], "%")
-        print("Odpowiedź ", lista_pytan[numer_pytania][1], list[0], "% odpowiedź ", lista_pytan[numer_pytania][3], list[1], "% odpowiedź", lista_pytan[numer_pytania][4], list[2], "%")
+        print ("Publiczność zagłosowała na odpowiedź", lista_pytan[numer_pytania][2],"-", list[-1], "%.")
+        print ("odpowiedź", lista_pytan[numer_pytania][1], "-", list[0], "%;  odpowiedź", lista_pytan[numer_pytania][3], "-", list[1], "%;  odpowiedź", lista_pytan[numer_pytania][4], "-", list[2], "%;")
     elif lista_pytan[numer_pytania][5]== lista_pytan[numer_pytania][3]:
-        print ("Publiczność zagłosowała na odpowiedź ", lista_pytan[numer_pytania][3], list[-1], "%")
-        print ("Odpowiedź ", lista_pytan[numer_pytania][1], list[0], "% odpowiedź ", lista_pytan[numer_pytania][2], list[1], "% odpowiedź", lista_pytan [numer_pytania][4], list[2], "%")
+        print ("Publiczność zagłosowała na odpowiedź", lista_pytan[numer_pytania][3],"-", list[-1], "%.")
+        print ("odpowiedź", lista_pytan[numer_pytania][1], "-", list[0], "%;  odpowiedź", lista_pytan[numer_pytania][2], "-", list[1], "%;  odpowiedź", lista_pytan [numer_pytania][4], "-", list[2], "%;")
     elif lista_pytan[numer_pytania][5]== lista_pytan[numer_pytania][4]:
-        print("Publiczność wybrała odpowiedź ", lista_pytan[numer_pytania][4], list[-1], "%")
-        print ("Odpowiedź ", lista_pytan[numer_pytania][1], list[0], "% odpowiedź ", lista_pytan[numer_pytania][2], list[1], " % odpowiedź", lista_pytan [numer_pytania][3], list[2], "%")
+        print ("Publiczność wybrała odpowiedź", lista_pytan[numer_pytania][4], "-", list[-1], "%.")
+        print ("odpowiedź", lista_pytan[numer_pytania][1], "-", list[0], "%;  odpowiedź", lista_pytan[numer_pytania][2], "-", list[1], "%;  odpowiedź", lista_pytan [numer_pytania][3], "-", list[2], "%;")
 ###########################################################################3
 def wyswietlanie_pytania(lista_pytan,numer_pytania):
-    wyswietl_prog()
+    wyswietl_prog(lista_progow)
+    print("")
     print(lista_pytan[numer_pytania][0])  #printowanie pytania - z listy (używając wylocowany numer porządkowy)
     for i in range(1, 5):     #printowanie 4!!! odpowiedzi do wyboru - z listy (używając wylocowany numer porządkowy)
+        if i==3:
+            print("")
         print(lista_pytan[numer_pytania][i], end = "   ")
 ###################################################################################################################
 def przyjmowanie_odp(lista_pytan,numer_pytania):
@@ -106,17 +111,18 @@ def przyjmowanie_odp(lista_pytan,numer_pytania):
     global wskaznik_progu
     global wskaznik_progu_gw
     while True:
-        wybor_uzytkownika = input("\nCo wybierasz?\nP.S. Jesli chcesz skorzystac z kol ratunkowych, wcisnij 1 dla telefon do kolegi; 2 - pol na pol; 3 - pytanie do publicznosci.")  #wpisywanie odpowiedzi #jak poprosic o wpisanie "A" czy "a"?
+        print("\n")
+        wybor_uzytkownika = input("Koła ratunkowe: 1 - telefon do przyjaciela; 2 - pol na pol; 3 - pytanie do publicznosci.\nCo wybierasz?\n")  #wpisywanie odpowiedzi #jak poprosic o wpisanie "A" czy "a"?
         if wybor_uzytkownika == lista_pytan[numer_pytania][6] or wybor_uzytkownika == lista_pytan[numer_pytania][7]:   #sprawdzanie czy wpisana odpowiedz prawdziwa; MA BYĆ NA 6 i 7 MIEJSCU PORZĄDKOWYM(DLA KOMPUTERA NA 5 i 6) W LIŚCIE!! #są dwa możliwe warianty wpisania "A" czy "a" - dlatego robimy (żeby nie przekształcać potem input) odrazu możliwość "A" czy "a".
-            print("Gratulacje, to prawidłowa odpowiedź!")
+            print("Brawo, to poprawna odpowiedź!")
             wskaznik_progu += 1
             if wskaznik_progu!=2 or wskaznik_progu!=7:
                 pass
-            elif wskaznik_progu==2:
+            if wskaznik_progu==2:
                 wskaznik_progu_gw=1000
-            elif wskaznik_progu==7:
+            if wskaznik_progu==7:
                 wskaznik_progu_gw=40000
-            wyswietl_prog()
+            wyswietl_prog(lista_progow)
             for i in range(3,0,-1):
                 print(i)
                 time.sleep(0.2)
@@ -134,10 +140,10 @@ def przyjmowanie_odp(lista_pytan,numer_pytania):
             przegrana=1
             break
 ###################################################################################################################
-def wyswietl_prog():
+def wyswietl_prog(lista_progow):
     global wskaznik_progu
     global wskaznik_progu_gw
-    print("Teraz jestes na progu:", lista_progow[wskaznik_progu],"zl\n oraz masz gwarantowane", wskaznik_progu_gw,"zl")
+    print("Teraz jestes na progu:", lista_progow[wskaznik_progu],"zl\noraz masz gwarantowane", wskaznik_progu_gw,"zl")
 ###################################################################################################################
 ###################################################################################################################
 ###################################################################################################################
