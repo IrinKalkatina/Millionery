@@ -16,7 +16,7 @@ przegrana=0
 ###################################################################################################################
 #funkcja ktora wyswietla sie na poczatku programu, przed pytaniami
 def powitanie(wskaznik_progu):
-    print("Witaj! Mam na imie Hubert Urbański i dziś zagrasz o milion złotych.")
+    print("Witaj! Mam na imię Hubert Urbański i dziś zagrasz o milion złotych.")
 ###################################################################################################################
 def losowanie_pytania():
         return random.randint(0,len(lista_pytan)-1)
@@ -39,7 +39,7 @@ def kolo_pol_na_pol(lista_pytan, wylos_nr_pytania):     #kolo przyjmuje z argume
             print(lista_pytan[wylos_nr_pytania][5], lista_pytan[wylos_nr_pytania][wylos_nr_2_odpowiedzi]) #prawdziwa odp na początku
         else:
             print(lista_pytan[wylos_nr_pytania][wylos_nr_2_odpowiedzi], lista_pytan[wylos_nr_pytania][5])  #prawdziwa odp na końcu
-
+###############################################################################################################################
 def wyswietlanie_pytania(lista_pytan,numer_pytania):
     wyswietl_prog()
     print(lista_pytan[numer_pytania][0])  #printowanie pytania - z listy (używając wylocowany numer porządkowy)
@@ -51,7 +51,7 @@ def przyjmowanie_odp(lista_pytan,numer_pytania):
     global wskaznik_progu
     global wskaznik_progu_gw
     while True:
-        wybor_uzytkownika = input("\nCo wybierasz? (wpisz ????) P.S. Jesli chcesz skorzystac z kol ratunkowych, wcisnij 1 dla telefon do kolegi; 2 - pol na pol; 3 - pytanie do publicznosci.")  #wpisywanie odpowiedzi #jak poprosic o wpisanie "A" czy "a"?
+        wybor_uzytkownika = input("\nCo wybierasz?\nP.S. Jesli chcesz skorzystac z kol ratunkowych, wcisnij 1 dla telefon do kolegi; 2 - pol na pol; 3 - pytanie do publicznosci.")  #wpisywanie odpowiedzi #jak poprosic o wpisanie "A" czy "a"?
         if wybor_uzytkownika == lista_pytan[numer_pytania][6] or wybor_uzytkownika == lista_pytan[numer_pytania][7]:   #sprawdzanie czy wpisana odpowiedz prawdziwa; MA BYĆ NA 6 i 7 MIEJSCU PORZĄDKOWYM(DLA KOMPUTERA NA 5 i 6) W LIŚCIE!! #są dwa możliwe warianty wpisania "A" czy "a" - dlatego robimy (żeby nie przekształcać potem input) odrazu możliwość "A" czy "a".
             print("Gratulacje, to prawidłowa odpowiedź!")
             wskaznik_progu += 1
