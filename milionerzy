@@ -23,9 +23,12 @@ def losowanie_pytania():
 ###################################################################################################################
 def telefon_do_przyjaciela(lista_pytan, wylosowane_pytanie):
     print("Hej, ziomek, gram teraz w Millijonerów. \n Mam do Ciebie pytanie:", lista_pytan[wylosowane_pytanie][0], "\nCzy mozesz udzielic odpowiedzi?")
-    wylosowana_odpowiedz = random.choice("ABCD") #losuje nam odpowiedzi od abcd
-    print("Odpowiedz kolegi", wylosowana_odpowiedz) #zrobilam tak, ze odpowiedz, ktora poda kolega/ kolezanka - jest tez wylosowana, ale z wiekszym prawdobodobienstwem, ze bedzie podana prawidlowa odpowiedz
-#######################################################################################################################
+    tablica_dla_los = ["A", "B", "C", "D"]   #LISTA Z KTÓREJ LOSUJEMY ODPOWIEDŻ KOLEGI
+    tablica_dla_los.append(lista_pytan[wylosowane_pytanie][6]) #zwiększamy w tym miejscu prawdopodobieństwo wylosowania prawidłowej odp
+    tablica_dla_los.append(lista_pytan[wylosowane_pytanie][6])
+    wylosowana_odpowiedz = random.choice(tablica_dla_los) #losuje nam odpowiedzi od abcd +2literki
+    print("Odpowiedz kolegi:", wylosowana_odpowiedz)
+##########################################################################################################################
 def kolo_pol_na_pol(lista_pytan, wylos_nr_pytania):     #kolo przyjmuje z argumenty listę pytań i numer danego pytania wylosowanego przez komputer
     wylos_nr_2_odpowiedzi = random.randint(1, 4)        #pół na pół - jedna odp mrzawdziwa i jedna losowa -- w tym miejscu losujemy drugą możliwą odp
     while lista_pytan[wylos_nr_pytania][wylos_nr_2_odpowiedzi] == lista_pytan[wylos_nr_pytania][5]:    #ta druga odpowiedź ma być inna niż prawdziwa
