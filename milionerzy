@@ -5,7 +5,7 @@ import os
 ######################################################
 lista_pytan = [
 ["Jakiego koloru były smerfy?","A. niebieskiego", "B. różowego", "C. czerwony", "D. zielonego","A. niebieskiego", "A", "a"],
-["Która z planet ma pierścienie?", "A. Pluton", "B. Saturn", "C. Neptun","D. Merkury", "B", "b"],
+["Która z planet ma pierścienie?", "A. Pluton", "B. Saturn", "C. Neptun", "D. Merkury", "B. Saturn", "B", "b"],
 ["Jaka część mowy odpowiada na pytania: kto, co?", "A. przymiotnik", " B. czasownik", "C. rzeczownik", "D. przysłówek","C.rzeczownik", "C", "c"],
 ["Kogo uratowała Calineczka?"," A. kreta", "B. jaskółkę", "D. pingwina" , "D. żabę", "B. jaskółkę", "B", "b"],
 ["Jaka legenda jest związana z Warszawą?", "A. o smoku wawelskim", "B. o Popielu", "C. o Wandzie, co nie chciała Niemca", "D. o syrence", "D. o syrence", "D", "d"],
@@ -19,10 +19,10 @@ lista_pytan = [
 ["Która szkoła wyższa jest najstarsza w Polsce?", "A. Szkoła Główna Handlowa", "B. Akademia Górniczo-Hutnicza", "C. Uniwersytet Jagielloński", "D. Uniwersytet Warszawski", "C. Uniwersytet Jagielloński", "C", "c"],
 ["Który z podanych prezydentów Polski sprawował urząd najdłużej?", "A. Lech Wałęsa", "B. Aleksander Kwaśniewski", "C. Lech Kaczyński", "D. Bronisław Komorowski", "B. Aleksander Kwaśniewski", "B", "b"],
 ["W którym roku Słowacja wprowadziła walutę euro?", "A. w 2010", "B. w 2012", "C. w 2009", "D. w 2007", "C. w 2009", "C", "c"],
-[" Międzynarodowa organizacja policyjna ścigająca przestępstwa kryminalne to:", "A. Mosad", "B. Czeka", "C. Interpol", "D. Secret Service", "C. Interpol", "C", "c"],
+["Międzynarodowa organizacja policyjna ścigająca przestępstwa kryminalne to:", "A. Mosad", "B. Czeka", "C. Interpol", "D. Secret Service", "C. Interpol", "C", "c"],
 ["Kopa to", "A. 10 sztuk", "B. 12 sztuk", "C. 50 sztuk", "D. 60 sztuk", "D. 60 sztuk", "D", "d"],
-["Morze Martwe znane jest z następującego związku chemicznego", "A. NaCl", "B. HCl", "C. H20", "D. NaOH", "A. NaCl", "A", "a"],
-["Które z określeń nie oznacza wysłannika?",  "A. emisariusz", "B. kurier", "C. poseł", "D. ordynat", "D. ordynat", "D", "d"],
+["Morze Martwe znane jest z następującego związku chemicznego:", "A. NaCl", "B. HCl", "C. H20", "D. NaOH", "A. NaCl", "A", "a"],
+["Które z określeń nie oznacza wysłannika?", "A. emisariusz", "B. kurier", "C. poseł", "D. ordynat", "D. ordynat", "D", "d"],
 ["Jakie włoskie miasto było tłem romansu Romea i Julii?", "A. Werona", "B. Wenecja", "C. Florencja", "D. Palermo", "A. Werona", "A", "a"]
 ]
 ######################################################
