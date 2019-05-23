@@ -1,3 +1,7 @@
+#na początku programu
+from colorama import init, Style
+from termcolor import colored
+init()
 import random
 import time
 import os
@@ -5,7 +9,7 @@ import os
 ######################################################
 lista_pytan = [
 ["Jakiego koloru były smerfy?","A. niebieskiego", "B. różowego", "C. czerwony", "D. zielonego","A. niebieskiego","A. niebieskiego", "A", "a"],
-["Która z planet ma pierścienie?", "A. Pluton", "B. Saturn", "C. Neptun","D. Merkury","B. Saturn","B. Saturn", "B", "b"]
+["Która z planet ma pierścienie?", "A. Pluton", "B. Saturn", "C. Neptun","D. Merkury","B. Saturn", "B", "b"]
 ]
 ######################################################
 lista_progow=[0,500,1000,2000,5000,10000,20000,40000,75000,125000,250000,500000,1000000]
@@ -30,7 +34,7 @@ def wyswietlanie_pytania(lista_pytan,numer_pytania):
 def przyjmowanie_odp(lista_pytan,numer_pytania):
     global przegrana
     global wskaznik_progu
-    wybor_uzytkownika = input("\nCo wybierasz? (wpisz ????) ")  #wpisywanie odpowiedzi #jak poprosic o wpisanie "A" czy "a"?
+    wybor_uzytkownika = input("\nCo wybierasz? (wpisz ????) P.S. Jesli chcesz skorzystac z kol ratunkowych, wcisnij 1 dla telefon do kolegi; 2 - pol na pol; 3 - pytanie do publicznosci.")  #wpisywanie odpowiedzi #jak poprosic o wpisanie "A" czy "a"?
     if wybor_uzytkownika == lista_pytan[numer_pytania][7] or wybor_uzytkownika == lista_pytan[numer_pytania][8]:   #sprawdzanie czy wpisana odpowiedz prawdziwa; MA BYĆ NA 6 i 7 MIEJSCU PORZĄDKOWYM(DLA KOMPUTERA NA 5 i 6) W LIŚCIE!! #są dwa możliwe warianty wpisania "A" czy "a" - dlatego robimy (żeby nie przekształcać potem input) odrazu możliwość "A" czy "a".
         print("Super, to prawda!")
         wskaznik_progu += 1
@@ -39,6 +43,16 @@ def przyjmowanie_odp(lista_pytan,numer_pytania):
             print(i)
             time.sleep(0.6)
         os.system('cls')
+    elif wybor_uzytkownika == '1':
+        def telefon_do_przyjaciela(lista_pytan, wylosowane_pytanie): 
+            print("Hej, ziomek, gram teraz w Millijonerow. \n Mam do Ciebie pytanie:", lista_pytan[wylosowane_pytanie][0], "\nCzy mozesz udzielic odpowiedzi?")
+            wylosowana_odpowiedz = random.choice("ABCD") #losuje nam odpowiedzi od abcd
+            print("Odpowiedz kolegi", wylosowana_odpowiedz) #zrobilam tak, ze odpowiedz, ktora poda kolega/ kolezanka - jest tez wylosowana, ale z wiekszym prawdobodobienstwem, ze bedzie podana prawidlowa odpowiedz
+            if wylosowana_odpowiedz == lista_pytan[wylosowane_pytanie][6]: # 
+                print("I to dobra Odpowiedz")
+            else:
+                print("To zla odpowiedz :( ")
+
     else:
         wskaznik_progu = 0
         os.system('cls')
