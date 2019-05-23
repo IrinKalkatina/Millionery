@@ -4,8 +4,8 @@ import os
 
 ######################################################
 lista_pytan = [
-["Jakiego koloru były smerfy?","A. niebieskiego", "B. różowego", "C. czerwony", "D. zielonego","A. niebieskiego","A. niebieskiego", "A", "a"],
-["Która z planet ma pierścienie?", "A. Pluton", "B. Saturn", "C. Neptun","D. Merkury","B. Saturn","B. Saturn", "B", "b"]
+["Jakiego koloru były smerfy?","A. niebieskiego", "B. różowego", "C. czerwony", "D. zielonego","A. niebieskiego", "A", "a"],
+["Która z planet ma pierścienie?", "A. Pluton", "B. Saturn", "C. Neptun","D. Merkury","B. Saturn", "B", "b"]
 ]
 ######################################################
 lista_progow=[0,500,1000,2000,5000,10000,20000,40000,75000,125000,250000,500000,1000000]
@@ -15,14 +15,21 @@ przegrana=0
 ###################################################################################################################
 ###################################################################################################################
 ###################################################################################################################
+#funkcja ktora wyswietla sie na poczatku programu, przed pytaniami
 def powitanie(wskaznik_progu):
     print("Witaj! Mam na imie Hubert Urbański i dziś zagrasz o milion złotych.")
-    wyswietl_prog()
 ###################################################################################################################
 def losowanie_pytania():
         return random.randint(0,len(lista_pytan)-1)
 ###################################################################################################################
+def telefon_do_przyjaciela(lista_pytan, wylosowane_pytanie):
+    print("Hej, ziomek, gram teraz w Millijonerow. \n Mam do Ciebie pytanie:", lista_pytan[wylosowane_pytanie][0], "\nCzy mozesz udzielic odpowiedzi?")
+    wylosowana_odpowiedz = random.choice("ABCD") #losuje nam odpowiedzi od abcd
+    print("Odpowiedz kolegi", wylosowana_odpowiedz) #zrobilam tak, ze odpowiedz, ktora poda kolega/ kolezanka - jest tez wylosowana, ale z wiekszym prawdobodobienstwem, ze bedzie podana prawidlowa odpowiedz
+
+
 def wyswietlanie_pytania(lista_pytan,numer_pytania):
+    wyswietl_prog()
     print(lista_pytan[numer_pytania][0])  #printowanie pytania - z listy (używając wylocowany numer porządkowy)
     for i in range(1, 5):     #printowanie 4!!! odpowiedzi do wyboru - z listy (używając wylocowany numer porządkowy)
         print(lista_pytan[numer_pytania][i], end = "   ")
@@ -30,32 +37,42 @@ def wyswietlanie_pytania(lista_pytan,numer_pytania):
 def przyjmowanie_odp(lista_pytan,numer_pytania):
     global przegrana
     global wskaznik_progu
-    wybor_uzytkownika = input("\nCo wybierasz? (wpisz ????) ")  #wpisywanie odpowiedzi #jak poprosic o wpisanie "A" czy "a"?
-    if wybor_uzytkownika == lista_pytan[numer_pytania][7] or wybor_uzytkownika == lista_pytan[numer_pytania][8]:   #sprawdzanie czy wpisana odpowiedz prawdziwa; MA BYĆ NA 6 i 7 MIEJSCU PORZĄDKOWYM(DLA KOMPUTERA NA 5 i 6) W LIŚCIE!! #są dwa możliwe warianty wpisania "A" czy "a" - dlatego robimy (żeby nie przekształcać potem input) odrazu możliwość "A" czy "a".
-        print("Super, to prawda!")
-        wskaznik_progu += 1
-        wyswietl_prog()
-        for i in range(3,0,-1):
-            print(i)
-            time.sleep(0.6)
-        os.system('cls')
-    else:
-        wskaznik_progu = 0
-        os.system('cls')
-        print("Koniec gry.\n")
-        przegrana=1
+    while True:
+        wybor_uzytkownika = input("\nCo wybierasz? (wpisz ????) P.S. Jesli chcesz skorzystac z kol ratunkowych, wcisnij 1 dla telefon do kolegi; 2 - pol na pol; 3 - pytanie do publicznosci.")  #wpisywanie odpowiedzi #jak poprosic o wpisanie "A" czy "a"?
+        if wybor_uzytkownika == lista_pytan[numer_pytania][6] or wybor_uzytkownika == lista_pytan[numer_pytania][7]:   #sprawdzanie czy wpisana odpowiedz prawdziwa; MA BYĆ NA 6 i 7 MIEJSCU PORZĄDKOWYM(DLA KOMPUTERA NA 5 i 6) W LIŚCIE!! #są dwa możliwe warianty wpisania "A" czy "a" - dlatego robimy (żeby nie przekształcać potem input) odrazu możliwość "A" czy "a".
+            print("Gratulacje, to prawidłowa odpowiedź!")
+            wskaznik_progu += 1
+            wyswietl_prog()
+            for i in range(3,0,-1):
+                print(i)
+                time.sleep(0.2)
+            os.system('cls')
+            break
+        if wybor_uzytkownika == '1':
+            telefon_do_przyjaciela(lista_pytan,numer_pytania)
+        else:
+            wskaznik_progu = 0
+            os.system('cls')
+            print("Koniec gry.\n")
+            przegrana=1
+            break
 ###################################################################################################################
 def wyswietl_prog():
     global wskaznik_progu
-    print("Teraz jestes na progu:", lista_progow[wskaznik_progu],"zl\n\n")
+    print("Teraz jestes na progu:", lista_progow[wskaznik_progu],"zl\n")
 ###################################################################################################################
 ###################################################################################################################
 ###################################################################################################################
 
-
+#START OF THE GAME
 powitanie(wskaznik_progu)
+
 #MAIN LOOP OF THE GAME
 while True:
+    if wskaznik_progu==12:
+        print("Brawo, to prawidłowa odpowiedź na ostatnie pytanie!")
+        print("Wygrałeś MILION ZŁOTYCH!")
+        break
     if przegrana==0:
         aktualne_pytanie=losowanie_pytania()
         wyswietlanie_pytania(lista_pytan,aktualne_pytanie)
