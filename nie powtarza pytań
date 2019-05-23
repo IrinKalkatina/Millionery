@@ -1,0 +1,19 @@
+import random
+numer_pytaniea = 0
+lista_wyrzuc = []
+lista_pytan = [["Jakiego koloru były smerfy?","A. niebieskiego", "B. różowego", "C. czerwony", "D. zielonego","A. niebieskiego", "A", "a"],
+["Która z planet ma pierścienie?", "A. Pluton", "B. Saturn", "C. Neptun","D. Merkury", "B", "b"], 
+["Jaka część mowy odpowiada na pytania: kto, co?", "A. przymiotnik", " B. czasownik", "C. rzeczownik", "D. przysłówek","C.rzeczownik", "C", "c"],
+[" Kogo uratowała Calineczka?" " A. kreta", "B. jaskółkę", "D. pingwina" , "D. żabę","B. jaskółkę", "B", "b"]]
+######################################################
+def losowanie_pytania(lista_pytan):
+    return random.randint(0,len(lista_pytan)-1)
+
+for i in range(len(lista_wyrzuc)):
+    if lista_pytan[numer_pytania] == lista_wyrzuc[i]:
+        losowanie_pytan(lista_pytan)
+    else:
+        print(lista_pytan[numer_pytania][0])  #printowanie pytania - z listy (używając wylocowany numer porządkowy)
+        lista_wyrzuc.append(numer_pytania)
+for i in range(1, 5):     #printowanie 4!!! odpowiedzi do wyboru - z listy (używając wylocowany numer porządkowy)
+    print(lista_pytan[numer_pytania][i], end = " ")
