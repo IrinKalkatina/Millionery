@@ -7,10 +7,10 @@ from termcolor import colored
 init()
 ######################################################
 lista_pytan = [
-["Jakiego koloru były smerfy?","A. niebieskiego", "B. różowego", "C. czerwony", "D. zielonego","A. niebieskiego", "A", "a"],
+["Jakiego koloru były smerfy?", "A. niebieskiego", "B. różowego", "C. czerwony", "D. zielonego","A. niebieskiego", "A", "a"],
 ["Która z planet ma pierścienie?", "A. Pluton", "B. Saturn", "C. Neptun", "D. Merkury", "B. Saturn", "B", "b"],
 ["Jaka część mowy odpowiada na pytania: kto, co?", "A. przymiotnik", " B. czasownik", "C. rzeczownik", "D. przysłówek","C.rzeczownik", "C", "c"],
-["Kogo uratowała Calineczka?"," A. kreta", "B. jaskółkę", "D. pingwina" , "D. żabę", "B. jaskółkę", "B", "b"],
+["Kogo uratowała Calineczka?", "A. kreta", "B. jaskółkę", "D. pingwina" , "D. żabę", "B. jaskółkę", "B", "b"],
 ["Jaka legenda jest związana z Warszawą?", "A. o smoku wawelskim", "B. o Popielu", "C. o Wandzie, co nie chciała Niemca", "D. o syrence", "D. o syrence", "D", "d"],
 ["Kto ma łeb obdarty?", "A. kto późno przychodzi", "B. kto jest krótko ostrzyżony", "C. kto gra w karty", "D. kto ma nos zadarty", "C. kto gra w karty", "C", "c"],
 ["Co nie jest nazwą stylu pływackiego?", "A. rekin", "B. kraul", "C. żabka", "D. delfin", "A.rekin", "A", "a"],
@@ -29,19 +29,20 @@ lista_pytan = [
 ["Jakie włoskie miasto było tłem romansu Romea i Julii?", "A. Werona", "B. Wenecja", "C. Florencja", "D. Palermo", "A. Werona", "A", "a"]
 ]
 ######################################################
-lista_progow=[0,500,1000,2000,5000,10000,20000,40000,75000,125000,250000,500000,1000000]
+lista_progow = [0,500,1000,2000,5000,10000,20000,40000,75000,125000,250000,500000,1000000]
 wskaznik_progu = 0
 wskaznik_progu_gw = 0
 ######################################################
-przegrana=0
+przegrana = 0
+rezygnacja = 0
 ###################################################################################################################
 ###################################################################################################################
 ###################################################################################################################
 #funkcja ktora wyswietla sie na poczatku programu, przed pytaniami
 def powitanie(wskaznik_progu):
-    print("Witaj! Mam na imię Hubert Urbański i dziś zagrasz o milion złotych.")
+    print("Witaj! Mam na imię Ubert Hurbański i dziś zagrasz o milion złotych!\n")
 ###################################################################################################################
-def losowanie_pytania():
+def losowanie_pytania(lista_pytan):
         return random.randint(0,len(lista_pytan)-1)
 ###################################################################################################################
 def telefon_do_przyjaciela(lista_pytan, wylosowane_pytanie):
@@ -59,9 +60,9 @@ def kolo_pol_na_pol(lista_pytan, wylos_nr_pytania):     #kolo przyjmuje z argume
     else:                 #jeśli druga możliwa odp jest różna od prawdziwej to ważna jest kolejność ich printowania, żeby nie było latwo (prawdziwa odp może być na początku czy na końcu)
         kolejnosc_wariantow = random.randint(1, 2)
         if kolejnosc_wariantow == 1:
-            print(lista_pytan[wylos_nr_pytania][5], lista_pytan[wylos_nr_pytania][wylos_nr_2_odpowiedzi]) #prawdziwa odp na początku
+            print(lista_pytan[wylos_nr_pytania][5], " ", lista_pytan[wylos_nr_pytania][wylos_nr_2_odpowiedzi]) #prawdziwa odp na początku
         else:
-            print(lista_pytan[wylos_nr_pytania][wylos_nr_2_odpowiedzi], lista_pytan[wylos_nr_pytania][5])  #prawdziwa odp na końcu
+            print(lista_pytan[wylos_nr_pytania][wylos_nr_2_odpowiedzi], " ", lista_pytan[wylos_nr_pytania][5])  #prawdziwa odp na końcu
 ###############################################################################################################################
 def publicznosc (lista_pytan, numer_pytania): ####################koło publicznosc
     licznik1=0
@@ -108,6 +109,7 @@ def wyswietlanie_pytania(lista_pytan,numer_pytania):
 ###################################################################################################################
 def przyjmowanie_odp(lista_pytan,numer_pytania):
     global przegrana
+    global rezygnacja
     global wskaznik_progu
     global wskaznik_progu_gw
     while True:
@@ -123,9 +125,9 @@ def przyjmowanie_odp(lista_pytan,numer_pytania):
             if wskaznik_progu==7:
                 wskaznik_progu_gw=40000
             wyswietl_prog(lista_progow)
-            for i in range(3,0,-1):
-                print(i)
-                time.sleep(0.2)
+            for i in range(3,0,-1): #odlicza 321 po prawidlowej odpowiedzi, end="\r" znaczy ze nadpisuje aktualną linijkę, dlatego licznik wyswietla sie ladnie w jednym miejscu
+                print(i,end="\r")
+                time.sleep(0.5)
             os.system('cls')
             break
         elif wybor_uzytkownika == '1':
@@ -134,16 +136,19 @@ def przyjmowanie_odp(lista_pytan,numer_pytania):
             kolo_pol_na_pol(lista_pytan,numer_pytania)
         elif wybor_uzytkownika =='3':
             publicznosc(lista_pytan,numer_pytania)
+        elif wybor_uzytkownika =='X' or wybor_uzytkownika=='x':
+            rezygnacja=1
+            break
+        elif not wybor_uzytkownika in "ABCD123Xabcdx": #jeśli gracz wpisał inny znak niż dozwolone, napisz mu że zły klawisz
+            print("Niepoprawna komenda, spróbuj ponownie.")
         else:
-            os.system('cls')
-            print("Koniec gry.\nOdchodzisz z kwotą:",wskaznik_progu_gw)
             przegrana=1
             break
 ###################################################################################################################
 def wyswietl_prog(lista_progow):
     global wskaznik_progu
     global wskaznik_progu_gw
-    print("Teraz jestes na progu:", lista_progow[wskaznik_progu],"zl\noraz masz gwarantowane", wskaznik_progu_gw,"zl")
+    print("Jesteś teraz na progu:", lista_progow[wskaznik_progu],"zl\noraz masz gwarantowane", wskaznik_progu_gw,"zł.")
 ###################################################################################################################
 ###################################################################################################################
 ###################################################################################################################
@@ -153,14 +158,20 @@ powitanie(wskaznik_progu)
 
 #MAIN LOOP OF THE GAME
 while True:
-    if wskaznik_progu==12:
+    if wskaznik_progu==12: #jeśli gracz odpowiedzial na ostatnie pytanie, wyswietl ze wygral milion i zakoncz program
         print("Brawo, to prawidłowa odpowiedź na ostatnie pytanie!")
         print("Wygrałeś MILION ZŁOTYCH!")
         break
-    if przegrana==0:
-        aktualne_pytanie=losowanie_pytania()
+    if przegrana==0 and rezygnacja==0: #jesli przegrana rowna sie zero (czyli nie przegral), wyswietl kolejne pytanie
+        aktualne_pytanie=losowanie_pytania(lista_pytan)
         wyswietlanie_pytania(lista_pytan,aktualne_pytanie)
         przyjmowanie_odp(lista_pytan,aktualne_pytanie)
-    else:
-        print("Przegrales sorki")
-        break
+    else: #jesli przegrana rowna sie jeden (czyli jesli przegral) lub rezygnacja rowna sie jeden (czyli jesli zrezygnowal) to wyswietl stosowny komunikat i zakoncz program
+        if przegrana==1:
+            os.system('cls')
+            print("Bardzo mi przykro, przegrałeś grę! Odchodzisz z kwotą:",wskaznik_progu_gw)
+            break
+        elif rezygnacja==1:
+            os.system('cls')
+            print("Zrezygnowałeś z dalszej gry. Odchodzisz z kwotą:",lista_progow[wskaznik_progu])
+            break
