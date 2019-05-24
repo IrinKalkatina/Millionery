@@ -1,7 +1,6 @@
 import random
 import time
 import os
-
 from colorama import init, Style
 from termcolor import colored
 init()
@@ -29,7 +28,7 @@ lista_pytan = [
 ["Jakie włoskie miasto było tłem romansu Romea i Julii?", "A. Werona", "B. Wenecja", "C. Florencja", "D. Palermo", "A. Werona", "A", "a"]
 ]
 ######################################################
-lista_progow = [0,500,1000,2000,5000,10000,20000,40000,75000,125000,250000,500000,1000000]
+lista_progow = ["500","1 000","2 000","5 000","10 000","20 000","40 000","75 000","125 000","250 000","500 000","1 000 000","0"]
 wskaznik_progu = 0
 wskaznik_progu_gw = 0
 ######################################################
@@ -39,7 +38,7 @@ rezygnacja = 0
 ###################################################################################################################
 ###################################################################################################################
 #funkcja ktora wyswietla sie na poczatku programu, przed pytaniami
-def powitanie(wskaznik_progu):
+def powitanie():
     print("Witaj! Mam na imię Ubert Hurbański i dziś zagrasz o milion złotych!\n")
 ###################################################################################################################
 def losowanie_pytania(lista_pytan):
@@ -124,10 +123,9 @@ def przyjmowanie_odp(lista_pytan,numer_pytania):
                 wskaznik_progu_gw=1000
             if wskaznik_progu==7:
                 wskaznik_progu_gw=40000
-            wyswietl_prog(lista_progow)
             for i in range(3,0,-1): #odlicza 321 po prawidlowej odpowiedzi, end="\r" znaczy ze nadpisuje aktualną linijkę, dlatego licznik wyswietla sie ladnie w jednym miejscu
                 print(i,end="\r")
-                time.sleep(0.5)
+                time.sleep(0.4)
             os.system('cls')
             break
         elif wybor_uzytkownika == '1':
@@ -139,26 +137,158 @@ def przyjmowanie_odp(lista_pytan,numer_pytania):
         elif wybor_uzytkownika =='X' or wybor_uzytkownika=='x':
             rezygnacja=1
             break
-        elif not wybor_uzytkownika in "ABCD123Xabcdx": #jeśli gracz wpisał inny znak niż dozwolone, napisz mu że zły klawisz
+        elif not wybor_uzytkownika in "ABCD123Xabcdx" or wybor_uzytkownika=="": #jeśli gracz wpisał inny znak niż dozwolone, napisz mu że zły klawisz
             print("Niepoprawna komenda, spróbuj ponownie.")
         else:
             przegrana=1
             break
 ###################################################################################################################
-def wyswietl_prog(lista_progow):
+def wyswietl_prog(lista_progow): #wyswietla progi i do kazdego dodaje kilka spacji po to zeby bylo wysrodkowane; podswietla progi gwarantowane; podswietla kase za aktualne pytanie
+    #ta funkcja ma trzy opcje:
+    #  - jeśli zostanie wywołana podczas gry, wtedy wyświetla listę progów i podświetla aktualne pytanie
+    #  - jeśli zostanie wywołana po przegranej, wtedy wyświetła całą listę progów na czerwono
+    #  - jeśli zostanie wywołana po rezygnacji lub gdy się wygra, wtedy wyświetla listę progów i podświetla na zielono ile zabraliśmy do domu
     global wskaznik_progu
     global wskaznik_progu_gw
-    print("Jesteś teraz na progu:", lista_progow[wskaznik_progu],"zl\noraz masz gwarantowane", wskaznik_progu_gw,"zł.")
+    print(" MILIONERZY\n")
+    if przegrana==1:
+        print(" ",end='')
+        print(colored("1 000 000",'red','on_white'))
+        print(colored("  500 000",'red'))
+        print(colored("  250 000",'red'))
+        print(colored("  125 000",'red'))
+        print(colored("   75 000",'red'))
+        print("   ",end='')
+        print(colored("40 000",'red','on_white'))
+        print(colored("   20 000",'red'))
+        print(colored("   10 000",'red'))
+        print(colored("    5 000",'red'))
+        print(colored("    2 000",'red'))
+        print("    ",end='')
+        print(colored("1 000",'red','on_white'))
+        print(colored("      500",'red'))
+    elif rezygnacja==1 or wskaznik_progu==12:
+        wskaznik_progu-=1
+        if wskaznik_progu==11:
+            print(" ",end='')
+            print(colored("1 000 000",'white','on_green'))
+        else:
+            print(" ",end='')
+            print(colored("1 000 000",'grey','on_white'))
+        if wskaznik_progu==10:
+            print(colored("  500 000",'white','on_green'))
+        else:
+            print("  500 000")
+        if wskaznik_progu==9:
+            print(colored("  250 000",'white','on_green'))
+        else:
+            print("  250 000")
+        if wskaznik_progu==8:
+            print(colored("  125 000",'white','on_green'))
+        else:
+            print("  125 000")
+        if wskaznik_progu==7:
+            print(colored("   75 000",'white','on_green'))
+        else:
+            print("   75 000")
+        if wskaznik_progu==6:
+            print("   ",end='')
+            print(colored("40 000",'white','on_green'))
+        else:
+            print("   ",end='')
+            print(colored("40 000",'grey','on_white'))
+        if wskaznik_progu==5:
+            print(colored("   20 000",'white','on_green'))
+        else:
+            print("   20 000")
+        if wskaznik_progu==4:
+            print(colored("   10 000",'white','on_green'))
+        else:
+            print("   10 000")
+        if wskaznik_progu==3:
+            print(colored("    5 000",'white','on_green'))
+        else:
+            print("    5 000")
+        if wskaznik_progu==2:
+            print(colored("    2 000",'white','on_green'))
+        else:
+            print("    2 000")
+        if wskaznik_progu==1:
+            print("    ",end='')
+            print(colored("1 000",'white','on_green'))
+        else:
+            print("    ",end='')
+            print(colored("1 000",'grey','on_white'))
+        if wskaznik_progu==0:
+            print(colored("      500",'white','on_green'))
+        else:
+            print("      500")
+    else:
+        if wskaznik_progu==11:
+            print(" ",end='')
+            print(colored("1 000 000",'cyan','on_white'))
+        else:
+            print(" ",end='')
+            print(colored("1 000 000",'grey','on_white'))
+        if wskaznik_progu==10:
+            print(colored("  500 000",'cyan'))
+        else:
+            print("  500 000")
+        if wskaznik_progu==9:
+            print(colored("  250 000",'cyan'))
+        else:
+            print("  250 000")
+        if wskaznik_progu==8:
+            print(colored("  125 000",'cyan'))
+        else:
+            print("  125 000")
+        if wskaznik_progu==7:
+            print(colored("   75 000",'cyan'))
+        else:
+            print("   75 000")
+        if wskaznik_progu==6:
+            print("   ",end='')
+            print(colored("40 000",'cyan','on_white'))
+        else:
+            print("   ",end='')
+            print(colored("40 000",'grey','on_white'))
+        if wskaznik_progu==5:
+            print(colored("   20 000",'cyan'))
+        else:
+            print("   20 000")
+        if wskaznik_progu==4:
+            print(colored("   10 000",'cyan'))
+        else:
+            print("   10 000")
+        if wskaznik_progu==3:
+            print(colored("    5 000",'cyan'))
+        else:
+            print("    5 000")
+        if wskaznik_progu==2:
+            print(colored("    2 000",'cyan'))
+        else:
+            print("    2 000")
+        if wskaznik_progu==1:
+            print("    ",end='')
+            print(colored("1 000",'cyan','on_white'))
+        else:
+            print("    ",end='')
+            print(colored("1 000",'grey','on_white'))
+        if wskaznik_progu==0:
+            print(colored("      500",'cyan'))
+        else:
+            print("      500")
 ###################################################################################################################
 ###################################################################################################################
 ###################################################################################################################
 
 #START OF THE GAME
-powitanie(wskaznik_progu)
+powitanie()
 
 #MAIN LOOP OF THE GAME
 while True:
     if wskaznik_progu==12: #jeśli gracz odpowiedzial na ostatnie pytanie, wyswietl ze wygral milion i zakoncz program
+        wyswietl_prog(lista_progow)
         print("Brawo, to prawidłowa odpowiedź na ostatnie pytanie!")
         print("Wygrałeś MILION ZŁOTYCH!")
         break
@@ -169,9 +299,11 @@ while True:
     else: #jesli przegrana rowna sie jeden (czyli jesli przegral) lub rezygnacja rowna sie jeden (czyli jesli zrezygnowal) to wyswietl stosowny komunikat i zakoncz program
         if przegrana==1:
             os.system('cls')
-            print("Bardzo mi przykro, przegrałeś grę! Odchodzisz z kwotą:",wskaznik_progu_gw)
+            wyswietl_prog(lista_progow)
+            print("\nBardzo mi przykro, przegrałeś grę! Odchodzisz z kwotą:",wskaznik_progu_gw)
             break
         elif rezygnacja==1:
             os.system('cls')
+            wyswietl_prog(lista_progow)
             print("Zrezygnowałeś z dalszej gry. Odchodzisz z kwotą:",lista_progow[wskaznik_progu])
             break
