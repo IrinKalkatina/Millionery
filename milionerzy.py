@@ -1,11 +1,11 @@
 import random
 import time
 import os
+import sys
 from colorama import init, Style
 from termcolor import colored
 init()
 ######################################################
-lista_wyrzuc = []
 lista_pytan = [
 ["Jakiego koloru były smerfy?", "A. niebieskiego", "B. różowego", "C. czerwony", "D. zielonego","A. niebieskiego", "A", "a"],
 ["Która z planet ma pierścienie?", "A. Pluton", "B. Saturn", "C. Neptun", "D. Merkury", "B. Saturn", "B", "b"],
@@ -35,15 +35,13 @@ wskaznik_progu_gw = 0
 ######################################################
 przegrana = 0
 rezygnacja = 0
+telefon_został_wykorzystany = 0
 ###################################################################################################################
 ###################################################################################################################
 ###################################################################################################################
 #funkcja ktora wyswietla sie na poczatku programu, przed pytaniami
 def powitanie():
     print("Witaj! Mam na imię Ubert Hurbański i dziś zagrasz o milion złotych!\n")
-###################################################################################################################
-def losowanie_nr_pytania(lista_pytan):
-    return random.randint(0,len(lista_pytan)-1)
 ###################################################################################################################
 def telefon_do_przyjaciela(lista_pytan, wylosowane_pytanie):
     print("Hej, ziomek, gram teraz w Millijonerów. \n Mam do Ciebie pytanie:", lista_pytan[wylosowane_pytanie][0], "\nCzy mozesz udzielic odpowiedzi?")
@@ -98,7 +96,17 @@ def publicznosc (lista_pytan, numer_pytania): ####################koło publiczn
         print ("Publiczność wybrała odpowiedź", lista_pytan[numer_pytania][4], "-", list[-1], "%.")
         print ("odpowiedź", lista_pytan[numer_pytania][1], "-", list[0], "%;  odpowiedź", lista_pytan[numer_pytania][2], "-", list[1], "%;  odpowiedź", lista_pytan [numer_pytania][3], "-", list[2], "%;")
 ###########################################################################3
-def wyswietlanie_pytania(lista_pytan,numer_pytania):
+def generacja_kolejnosci_pytan(size = 10):
+    lista = []
+    for i in range(0, size):
+        lista.append(i)
+    for i in range(0, size):
+        rnd1 = random.randint(0, size - 1)
+        rnd2 = random.randint(0, size - 1)
+        lista[rnd1], lista[rnd2] = lista[rnd2], lista[rnd1]
+    return (lista)
+
+def wyswietlanie_pytania(lista_pytan, numer_pytania):
     wyswietl_prog(lista_progow)
     print("")
     print(lista_pytan[numer_pytania][0])  #printowanie pytania - z listy (używając wylocowany numer porządkowy)
@@ -114,7 +122,7 @@ def przyjmowanie_odp(lista_pytan,numer_pytania):
     global wskaznik_progu_gw
     while True:
         print("\n")
-        wybor_uzytkownika = input("Koła ratunkowe: 1 - telefon do przyjaciela; 2 - pol na pol; 3 - pytanie do publicznosci.\nCo wybierasz?\n")  #wpisywanie odpowiedzi #jak poprosic o wpisanie "A" czy "a"?
+        wybor_uzytkownika = input("Koła ratunkowe: 1 - telefon do przyjaciela; 2 - pol na pol; 3 - pytanie do publicznosci.\nPS.dla rezygnacji wciśnij \"X\".\nCo wybierasz?\n")  #wpisywanie odpowiedzi #jak poprosic o wpisanie "A" czy "a"?
         if wybor_uzytkownika == lista_pytan[numer_pytania][6] or wybor_uzytkownika == lista_pytan[numer_pytania][7]:   #sprawdzanie czy wpisana odpowiedz prawdziwa; MA BYĆ NA 6 i 7 MIEJSCU PORZĄDKOWYM(DLA KOMPUTERA NA 5 i 6) W LIŚCIE!! #są dwa możliwe warianty wpisania "A" czy "a" - dlatego robimy (żeby nie przekształcać potem input) odrazu możliwość "A" czy "a".
             print("Brawo, to poprawna odpowiedź!")
             wskaznik_progu += 1
@@ -130,7 +138,12 @@ def przyjmowanie_odp(lista_pytan,numer_pytania):
             os.system('cls')
             break
         elif wybor_uzytkownika == '1':
-            telefon_do_przyjaciela(lista_pytan,numer_pytania)
+            global telefon_został_wykorzystany
+            if telefon_został_wykorzystany == 0:
+                telefon_do_przyjaciela(lista_pytan,numer_pytania)
+                telefon_został_wykorzystany = 1
+            else:
+                print("Już wykorzystałeś/aś koło ratunkowe \"Telefon\" jeden raz - więcej nie wolno")
         elif wybor_uzytkownika =='2':
             kolo_pol_na_pol(lista_pytan,numer_pytania)
         elif wybor_uzytkownika =='3':
@@ -286,6 +299,11 @@ def wyswietl_prog(lista_progow): #wyswietla progi i do kazdego dodaje kilka spac
 #START OF THE GAME
 powitanie()
 
+rozmiar_listy = len(lista_pytan)
+kolejnosc_pytan = generacja_kolejnosci_pytan(rozmiar_listy)
+
+obecny = 0
+
 #MAIN LOOP OF THE GAME
 while True:
     if wskaznik_progu==12: #jeśli gracz odpowiedzial na ostatnie pytanie, wyswietl ze wygral milion i zakoncz program
@@ -294,7 +312,8 @@ while True:
         print("Wygrałeś MILION ZŁOTYCH!")
         break
     if przegrana==0 and rezygnacja==0: #jesli przegrana rowna sie zero (czyli nie przegral), wyswietl kolejne pytanie
-        aktualne_pytanie=losowanie_pytania(lista_pytan)
+        aktualne_pytanie=kolejnosc_pytan[obecny]
+        obecny += 1
         wyswietlanie_pytania(lista_pytan,aktualne_pytanie)
         przyjmowanie_odp(lista_pytan,aktualne_pytanie)
     else: #jesli przegrana rowna sie jeden (czyli jesli przegral) lub rezygnacja rowna sie jeden (czyli jesli zrezygnowal) to wyswietl stosowny komunikat i zakoncz program
