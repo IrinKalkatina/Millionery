@@ -5,6 +5,7 @@ from colorama import init, Style
 from termcolor import colored
 init()
 ######################################################
+lista_wyrzuc = []
 lista_pytan = [
 ["Jakiego koloru były smerfy?", "A. niebieskiego", "B. różowego", "C. czerwony", "D. zielonego","A. niebieskiego", "A", "a"],
 ["Która z planet ma pierścienie?", "A. Pluton", "B. Saturn", "C. Neptun", "D. Merkury", "B. Saturn", "B", "b"],
@@ -41,8 +42,8 @@ rezygnacja = 0
 def powitanie():
     print("Witaj! Mam na imię Ubert Hurbański i dziś zagrasz o milion złotych!\n")
 ###################################################################################################################
-def losowanie_pytania(lista_pytan):
-        return random.randint(0,len(lista_pytan)-1)
+def losowanie_nr_pytania(lista_pytan):
+    return random.randint(0,len(lista_pytan)-1)
 ###################################################################################################################
 def telefon_do_przyjaciela(lista_pytan, wylosowane_pytanie):
     print("Hej, ziomek, gram teraz w Millijonerów. \n Mam do Ciebie pytanie:", lista_pytan[wylosowane_pytanie][0], "\nCzy mozesz udzielic odpowiedzi?")
