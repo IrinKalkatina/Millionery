@@ -36,6 +36,8 @@ wskaznik_progu_gw = 0
 przegrana = 0
 rezygnacja = 0
 telefon_został_wykorzystany = 0
+pytdopub_został_wykorzystany = 0
+polnapol_został_wykorzystany = 0
 ###################################################################################################################
 ###################################################################################################################
 ###################################################################################################################
@@ -145,9 +147,19 @@ def przyjmowanie_odp(lista_pytan,numer_pytania):
             else:
                 print("Już wykorzystałeś/aś koło ratunkowe \"Telefon\" jeden raz - więcej nie wolno")
         elif wybor_uzytkownika =='2':
-            kolo_pol_na_pol(lista_pytan,numer_pytania)
+            global polnapol_został_wykorzystany
+            if polnapol_został_wykorzystany == 0:
+                kolo_pol_na_pol(lista_pytan,numer_pytania)
+                polnapol_został_wykorzystany = 1
+            else:
+                print("Już wykorzystałeś/aś koło ratunkowe \"Pół na pół\" jeden raz - więcej nie wolno")
         elif wybor_uzytkownika =='3':
-            publicznosc(lista_pytan,numer_pytania)
+            global pytdopub_został_wykorzystany
+            if pytdopub_został_wykorzystany == 0:
+                publicznosc(lista_pytan,numer_pytania)
+                pytdopub_został_wykorzystany = 1
+            else:
+                print("Już wykorzystałeś/aś koło ratunkowe \"Pytanie do publiczności\" jeden raz - więcej nie wolno")
         elif wybor_uzytkownika =='X' or wybor_uzytkownika=='x':
             rezygnacja=1
             break
