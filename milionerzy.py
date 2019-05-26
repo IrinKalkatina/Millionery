@@ -43,6 +43,52 @@ polnapol_został_wykorzystany = 0
 ###################################################################################################################
 ###################################################################################################################
 
+def reklama():
+    global wskaznik_progu
+    teksty_reklama_c=[
+    "Ubert Hurbański: Odpowiedź poznamy po przerwie.",
+    "Ubert Hurbański: Czas na reklamę. ",
+    "Ubert Hurbański: Wracamy po przerwie, bądźcie Państwo z nami.",
+    "Ubert Hurbański: Dowiemy się zaraz po przerwie.",
+    ]
+    teksty_reklama_m=[
+    "Ubert Hurbański: Powiem ci coś, co ci się nie spodoba",
+    "Ubert Hurbański: Nie sądzę, że będziesz zadowolony z tego co teraz powiem",
+    "Ubert Hurbański: Bardzo mi przykro, ale",
+    ]
+    if wskaznik_progu>=3 and wskaznik_progu<=7:
+        tekstr=random.randint(0,len(teksty_reklama_c)-1)
+        print(teksty_reklama_c[tekstr],end='')
+    else:
+        tekstm=random.randint(0,len(teksty_reklama_m)-1)
+        print(teksty_reklama_m[tekstm],end='')
+        for i in range(0,3):
+            time.sleep(0.5)
+            print('.',end='')
+            time.sleep(0.5)
+        print("czas na przerwę.")
+    time.sleep(3)
+    os.system('cls')
+    print(colored("Czy miałeś kiedyś ochotę na wyjazd w Bieszczady właśnie teraz, bez zastanowienia?",'red'))
+    time.sleep(3)
+    print(colored("Czy myślałeś kiedyś o tym, żeby spędzić miło czas wśród natury?",'green'))
+    time.sleep(3)
+    print(colored("Czy chciałbyś, żeby ktoś płacił Ci za bycie na wakacjach?",'yellow'))
+    time.sleep(3)
+    print(colored("Jeśli odpowiedź na którekolwiek z tych pytań to 'tak', trafiłeś w dobre miejsce!",'magenta'))
+    time.sleep(3)
+    print(colored("Bieszczadzkie ranczo 'HANYS' poszukuje pracowników na wypas owiec!",'magenta'))
+    time.sleep(2)
+    print(colored("Zadzwoń już teraz:",'red'))
+    for i in range(0,3):
+        print(random.randint(500,820),end='')
+        if not i ==2:
+            print("-",end='')
+        time.sleep(0.7)
+    time.sleep(4)
+    os.system('cls')
+    print("Ubert Hurbański: Wracamy po przerwie.")
+    time.sleep(2)
 
 def animacja():# Function for implementing the loading animation #source: https://www.geeksforgeeks.org/python-create-simple-animation-for-console-based-application/
     # String to be displayed when the application is loading
@@ -127,7 +173,7 @@ def powitanie():
     time.sleep(1)
     print(" i pół na pół.")
     time.sleep(1)
-    print("                                   Gramy o milion, bądźcie państwo z nami!")
+    print("                                   Gramy o milion, bądźcie państwo z nami!\n")
     time.sleep(1)
 ###################################################################################################################
 def telefon_do_przyjaciela(lista_pytan, wylosowane_pytanie):
@@ -240,7 +286,7 @@ def przyjmowanie_odp(lista_pytan,numer_pytania):
     global wskaznik_progu_gw
     while True:
         print("\n")
-        wybor_uzytkownika = input("Koła ratunkowe: 1 - telefon do przyjaciela; 2 - pol na pol; 3 - pytanie do publicznosci.\nPS.dla rezygnacji wciśnij \"X\".\nCo wybierasz?\n")  #wpisywanie odpowiedzi #jak poprosic o wpisanie "A" czy "a"?
+        wybor_uzytkownika = input("Koła ratunkowe: 1 - telefon do przyjaciela; 2 - pol na pol; 3 - pytanie do publicznosci.\nDla rezygnacji wciśnij \"X\".\nCo wybierasz?\n")  #wpisywanie odpowiedzi #jak poprosic o wpisanie "A" czy "a"?
         if wybor_uzytkownika == lista_pytan[numer_pytania][6] or wybor_uzytkownika == lista_pytan[numer_pytania][7]:   #sprawdzanie czy wpisana odpowiedz prawdziwa; MA BYĆ NA 6 i 7 MIEJSCU PORZĄDKOWYM(DLA KOMPUTERA NA 5 i 6) W LIŚCIE!! #są dwa możliwe warianty wpisania "A" czy "a" - dlatego robimy (żeby nie przekształcać potem input) odrazu możliwość "A" czy "a".
             wskaznik_progu += 1
             if wskaznik_progu!=2 or wskaznik_progu!=7:
@@ -249,9 +295,12 @@ def przyjmowanie_odp(lista_pytan,numer_pytania):
                 wskaznik_progu_gw=1000
             if wskaznik_progu==7:
                 wskaznik_progu_gw=40000
+            print("Ubert Hurbański: Czy to poprawna odpowiedź?")
             for i in range(3,0,-1): #odlicza 321 po prawidlowej odpowiedzi, end="\r" znaczy ze nadpisuje aktualną linijkę, dlatego licznik wyswietla sie ladnie w jednym miejscu
                 print(i,end="\r")
                 time.sleep(0.4)
+            if wskaznik_progu==5+random.randint(-2,2) or wskaznik_progu==11:
+                reklama()
             os.system('cls')
             break
         elif wybor_uzytkownika == '1':
@@ -291,7 +340,7 @@ def wyswietl_prog(lista_progow): #wyswietla progi i do kazdego dodaje kilka spac
     #  - jeśli zostanie wywołana po rezygnacji lub gdy się wygra, wtedy wyświetla listę progów i podświetla na zielono ile zabraliśmy do domu
     global wskaznik_progu
     global wskaznik_progu_gw
-    print("\n\n MILIONERZY\n")
+    print("\n MILIONERZY\n")
     if przegrana==1:
         print(" ",end='')
         print(colored("1 000 000",'red','on_white'))
@@ -427,16 +476,17 @@ def wyswietl_prog(lista_progow): #wyswietla progi i do kazdego dodaje kilka spac
             "Ubert Hurbański: Świetnie! Przechodzimy do kolejnego pytania.",
             "Ubert Hurbański: Bardzo dobrze! Przechodzimy do kolejnego pytania.",
             "Ubert Hurbański: Brawo! Przechodzimy do kolejnego pytania.",
-            "Ubert Hurbański: To poprawna odpowiedź! Przechodzimy do kolejnego pytania.",
-            "Ubert Hurbański: Myślę, że to pytanie Ci się spodoba.",
-            "Ubert Hurbański: Brawo, to jest poprawna odpowiedź!",
-            "Ubert Hurbański: Brawo, to jest poprawna odpowiedź!",
-            "Ubert Hurbański: Brawo, to jest poprawna odpowiedź!",
-            "Ubert Hurbański: Brawo, to jest poprawna odpowiedź!",
-            "Ubert Hurbański: Brawo, to jest poprawna odpowiedź!",
-            "Ubert Hurbański: Brawo, to jest poprawna odpowiedź!",
-            "Ubert Hurbański: Tak, to jest poprawna odpowiedź!",
-            "Ubert Hurbański: Tutaj może przydać Ci się jedno z kół ratunkowych."]
+            "Ubert Hurbański: To była poprawna odpowiedź! Przechodzimy do kolejnego pytania.",
+            "Ubert Hurbański: Tak! Myślę, że kolejne pytanie Ci się spodoba.",
+            "Ubert Hurbański: Brawo, to była poprawna odpowiedź!",
+            "Ubert Hurbański: Brawo, to była poprawna odpowiedź!",
+            "Ubert Hurbański: Brawo, to była poprawna odpowiedź!",
+            "Ubert Hurbański: Brawo, to była poprawna odpowiedź!",
+            "Ubert Hurbański: Brawo, to była poprawna odpowiedź!",
+            "Ubert Hurbański: Brawo, to była poprawna odpowiedź!",
+            "Ubert Hurbański: Brawo, to była poprawna odpowiedź!",
+            "Ubert Hurbański: Tak, to była poprawna odpowiedź!",
+            "Ubert Hurbański: Tak! Ale w tym pytaniu może przydać Ci się jedno z kół ratunkowych."]
             wybrany_tekst=random.randint(0,len(tekstyg)-1)
             print(tekstyg[wybrany_tekst])
             time.sleep(1.5)
