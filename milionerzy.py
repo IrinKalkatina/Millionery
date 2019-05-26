@@ -216,13 +216,13 @@ def kolo_pol_na_pol(lista_pytan, wylos_nr_pytania):     #kolo przyjmuje z argume
             print(lista_pytan[wylos_nr_pytania][wylos_nr_2_odpowiedzi], " ", lista_pytan[wylos_nr_pytania][5])  #prawdziwa odp na końcu
 ###############################################################################################################################
 def publicznosc (lista_pytan, numer_pytania): ####################koło publicznosc
-    nr_tekstu=random.randint(0,3)
+    nr_tekstu=random.randint(0,2)
     teksty=[
     "Ubert Hurbański: Proszę państwa, oto pytanie dla państwa.",
     "Ubert Hurbański: Proszę Państwa, prosimy o Państwa pomoc...",
     "Ubert Hurbański: Bardzo prosimy państwa o wsparcie.."
     ]
-    print(teksty[nr_tekstutekst])
+    print(teksty[nr_tekstu])
     licznik1=0
     licznik2=0
     licznik3=0
