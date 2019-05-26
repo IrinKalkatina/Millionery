@@ -43,18 +43,33 @@ polnapol_został_wykorzystany = 0
 ###################################################################################################################
 ###################################################################################################################
 #funkcja ktora wyswietla sie na poczatku programu, przed pytaniami
+def animacja(): #source: https://gist.github.com/Y4suyuki/6805818
+        animation = "|/-\\"
+
+        for i in range(20):
+            time.sleep(0.1)
+            sys.stdout.write("\r" + animation[i % len(animation)])
+            sys.stdout.flush()
+        os.system('cls')
+
+
 def powitanie():
-    print("Witaj! Mam na imię Ubert Hurbański i dziś zagrasz o milion złotych!\n")
+    animacja()
+    print(colored("\n\n         Witam Państwa!",'cyan'),"Mam na imię Ubert Hurbański i mam przyjemność powitać dzisiejszego zawodnika. \nZasady są następujące: 12 pytań do miliona, 2 progi gwarantowane: 1000 zł i 40 000 zł oraz 3 koła ratunkowe:\n                         telefon do przyjaciela, pytanie do publiczności i pół na pół.\n                                 Gramy o milion, bądźcie państwo z nami")
+    time.sleep(1)
 ###################################################################################################################
 def telefon_do_przyjaciela(lista_pytan, wylosowane_pytanie):
     global wskaznik_progu
-    print("Dzwonimy do przyjaciela.")
+    print("\nDzwonimy do przyjaciela.")
     for i in range(0,3):
-        print("*",end='')
         time.sleep(1.2)
+        print("*",end='')
+    time.sleep(1.2)
     print("\nLukasz Morawiecki, słucham?")
     time.sleep(2)
-    print("Hej, Lukaszu, gram teraz w Millionerów. \nMam do Ciebie pytanie:", lista_pytan[wylosowane_pytanie][0])
+    print("Hej, Lukaszu, gram teraz w Millionerów.")
+    time.sleep(2)
+    print("Mam do Ciebie pytanie:", lista_pytan[wylosowane_pytanie][0])
     time.sleep(2)
     print("Czy możesz udzielić odpowiedzi?")
     tablica_dla_los = ["A", "A", "A", "B", "B", "B", "C", "C", "C", "D", "D", "D"]   #LISTA Z KTÓREJ LOSUJEMY ODPOWIEDŻ KOLEGI
@@ -62,14 +77,16 @@ def telefon_do_przyjaciela(lista_pytan, wylosowane_pytanie):
         tablica_dla_los.append(lista_pytan[wylosowane_pytanie][6])
     wylosowana_odpowiedz = random.choice(tablica_dla_los)#losuje nam odpowiedzi od abcd - im wyzszy numer pytania tym mniejsza szansa na poprawna odp
     for i in range(0,3):
-        print("*",end='')
         time.sleep(1.2)
-    print("\nPanie Lukaszu, czy Pan juz moze podać odpowiedź?")
+        print("*",end='')
+    time.sleep(1.2)
+    print("\nUbert Hurbański: Panie Lukaszu, czy Pan juz moze podać odpowiedź?")
     time.sleep(1)
     print("Odpowiedź kolegi:", wylosowana_odpowiedz)
 
 ##########################################################################################################################
 def kolo_pol_na_pol(lista_pytan, wylos_nr_pytania):     #kolo przyjmuje z argumenty listę pytań i numer danego pytania wylosowanego przez komputer
+    print("Ubert Hurbański: Proszę o odrzucenie dwóch błędnych odpowiedzi.")
     wylos_nr_2_odpowiedzi = random.randint(1, 4)        #pół na pół - jedna odp mrzawdziwa i jedna losowa -- w tym miejscu losujemy drugą możliwą odp
     while lista_pytan[wylos_nr_pytania][wylos_nr_2_odpowiedzi] == lista_pytan[wylos_nr_pytania][5]:    #ta druga odpowiedź ma być inna niż prawdziwa
         wylosowanie_2_odpowiedzi = random.randint(1, 4)
@@ -81,6 +98,13 @@ def kolo_pol_na_pol(lista_pytan, wylos_nr_pytania):     #kolo przyjmuje z argume
             print(lista_pytan[wylos_nr_pytania][wylos_nr_2_odpowiedzi], " ", lista_pytan[wylos_nr_pytania][5])  #prawdziwa odp na końcu
 ###############################################################################################################################
 def publicznosc (lista_pytan, numer_pytania): ####################koło publicznosc
+    nr_tekstu=random.randint(0,3)
+    teksty=[
+    "Ubert Hurbański: Proszę państwa, oto pytanie dla państwa.",
+    "Ubert Hurbański: Proszę Państwa, prosimy o Państwa pomoc...",
+    "Ubert Hurbański: Bardzo prosimy państwa o wsparcie.."
+    ]
+    print(teksty[nr_tekstutekst])
     licznik1=0
     licznik2=0
     licznik3=0
@@ -125,7 +149,10 @@ def generacja_kolejnosci_pytan(size = 10):
     return (lista)
 
 def wyswietlanie_pytania(lista_pytan, numer_pytania):
+    global wskaznik_progu
+    global lista_progow
     wyswietl_prog(lista_progow)
+    print("Ubert Hurbański: Pytanie za",lista_progow[wskaznik_progu],"zł.")
     print("")
     print(lista_pytan[numer_pytania][0])  #printowanie pytania - z listy (używając wylocowany numer porządkowy)
     for i in range(1, 5):     #printowanie 4!!! odpowiedzi do wyboru - z listy (używając wylocowany numer porządkowy)
@@ -142,7 +169,7 @@ def przyjmowanie_odp(lista_pytan,numer_pytania):
         print("\n")
         wybor_uzytkownika = input("Koła ratunkowe: 1 - telefon do przyjaciela; 2 - pol na pol; 3 - pytanie do publicznosci.\nPS.dla rezygnacji wciśnij \"X\".\nCo wybierasz?\n")  #wpisywanie odpowiedzi #jak poprosic o wpisanie "A" czy "a"?
         if wybor_uzytkownika == lista_pytan[numer_pytania][6] or wybor_uzytkownika == lista_pytan[numer_pytania][7]:   #sprawdzanie czy wpisana odpowiedz prawdziwa; MA BYĆ NA 6 i 7 MIEJSCU PORZĄDKOWYM(DLA KOMPUTERA NA 5 i 6) W LIŚCIE!! #są dwa możliwe warianty wpisania "A" czy "a" - dlatego robimy (żeby nie przekształcać potem input) odrazu możliwość "A" czy "a".
-            print("Brawo, to poprawna odpowiedź!")
+            print("Ubert Hurbański: Brawo, to jest poprawna odpowiedź!")
             wskaznik_progu += 1
             if wskaznik_progu!=2 or wskaznik_progu!=7:
                 pass
@@ -192,7 +219,7 @@ def wyswietl_prog(lista_progow): #wyswietla progi i do kazdego dodaje kilka spac
     #  - jeśli zostanie wywołana po rezygnacji lub gdy się wygra, wtedy wyświetla listę progów i podświetla na zielono ile zabraliśmy do domu
     global wskaznik_progu
     global wskaznik_progu_gw
-    print(" MILIONERZY\n")
+    print("\n\n MILIONERZY\n")
     if przegrana==1:
         print(" ",end='')
         print(colored("1 000 000",'red','on_white'))
@@ -320,6 +347,19 @@ def wyswietl_prog(lista_progow): #wyswietla progi i do kazdego dodaje kilka spac
             print(colored("      500",'cyan'))
         else:
             print("      500")
+        if wskaznik_progu==0:
+            print("\nUbert Hurbański: Zaczynajmy!\n")
+        else:
+            tekstyg=["Ubert Hurbański: To się dzieje naprawdę!",
+            "Ubert Hurbański: Świetnie! Przechodzimy do kolejnego pytania.",
+            "Ubert Hurbański: Bardzo dobrze! Przechodzimy do kolejnego pytania.",
+            "Ubert Hurbański: Brawo! Przechodzimy do kolejnego pytania.",
+            "Ubert Hurbański: To poprawna odpowiedź! Przechodzimy do kolejnego pytania.",
+            "Ubert Hurbański: Myślę, że to pytanie Ci się spodoba.",
+            "Ubert Hurbański: To ciekawe pytanie!",
+            "Ubert Hurbański: Tutaj może przydać Ci się jedno z kół ratunkowych."]
+            wybrany_tekst=random.randint(0,len(tekstyg)-1)
+            print(tekstyg[wybrany_tekst])
 ###################################################################################################################
 ###################################################################################################################
 ###################################################################################################################
@@ -336,8 +376,8 @@ obecny = 0
 while True:
     if wskaznik_progu==12: #jeśli gracz odpowiedzial na ostatnie pytanie, wyswietl ze wygral milion i zakoncz program
         wyswietl_prog(lista_progow)
-        print("Brawo, to prawidłowa odpowiedź na ostatnie pytanie!")
-        print("Wygrałeś MILION ZŁOTYCH!")
+        print("Ubert Hurbański: Brawo, to prawidłowa odpowiedź na ostatnie pytanie!")
+        print("Ubert Hurbański: Właśnie wygrałeś MILION ZŁOTYCH!\n\nDziękujemy, że byliście Państwo z nami!")
         break
     if przegrana==0 and rezygnacja==0: #jesli przegrana rowna sie zero (czyli nie przegral), wyswietl kolejne pytanie
         aktualne_pytanie=kolejnosc_pytan[obecny]
