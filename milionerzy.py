@@ -1,3 +1,4 @@
+
 import random
 import time
 import os
@@ -46,12 +47,27 @@ def powitanie():
     print("Witaj! Mam na imię Ubert Hurbański i dziś zagrasz o milion złotych!\n")
 ###################################################################################################################
 def telefon_do_przyjaciela(lista_pytan, wylosowane_pytanie):
-    print("Hej, ziomek, gram teraz w Millijonerów. \n Mam do Ciebie pytanie:", lista_pytan[wylosowane_pytanie][0], "\nCzy mozesz udzielic odpowiedzi?")
-    tablica_dla_los = ["A", "B", "C", "D"]   #LISTA Z KTÓREJ LOSUJEMY ODPOWIEDŻ KOLEGI
-    tablica_dla_los.append(lista_pytan[wylosowane_pytanie][6]) #zwiększamy w tym miejscu prawdopodobieństwo wylosowania prawidłowej odp
-    tablica_dla_los.append(lista_pytan[wylosowane_pytanie][6])
-    wylosowana_odpowiedz = random.choice(tablica_dla_los) #losuje nam odpowiedzi od abcd +2literki
-    print("Odpowiedz kolegi:", wylosowana_odpowiedz)
+    global wskaznik_progu
+    print("Dzwonimy do przyjaciela.")
+    for i in range(0,3):
+        print("*",end='')
+        time.sleep(1.2)
+    print("\nLukasz Morawiecki, słucham?")
+    time.sleep(2)
+    print("Hej, Lukaszu, gram teraz w Millionerów. \nMam do Ciebie pytanie:", lista_pytan[wylosowane_pytanie][0])
+    time.sleep(2)
+    print("Czy możesz udzielić odpowiedzi?")
+    tablica_dla_los = ["A", "A", "A", "B", "B", "B", "C", "C", "C", "D", "D", "D"]   #LISTA Z KTÓREJ LOSUJEMY ODPOWIEDŻ KOLEGI
+    for i in range(0,13-wskaznik_progu+random.randint(-1,3)): #zwiększamy w tym miejscu prawdopodobieństwo wylosowania prawidłowej odp
+        tablica_dla_los.append(lista_pytan[wylosowane_pytanie][6])
+    wylosowana_odpowiedz = random.choice(tablica_dla_los)#losuje nam odpowiedzi od abcd - im wyzszy numer pytania tym mniejsza szansa na poprawna odp
+    for i in range(0,3):
+        print("*",end='')
+        time.sleep(1.2)
+    print("\nPanie Lukaszu, czy Pan juz moze podać odpowiedź?")
+    time.sleep(1)
+    print("Odpowiedź kolegi:", wylosowana_odpowiedz)
+
 ##########################################################################################################################
 def kolo_pol_na_pol(lista_pytan, wylos_nr_pytania):     #kolo przyjmuje z argumenty listę pytań i numer danego pytania wylosowanego przez komputer
     wylos_nr_2_odpowiedzi = random.randint(1, 4)        #pół na pół - jedna odp mrzawdziwa i jedna losowa -- w tym miejscu losujemy drugą możliwą odp
