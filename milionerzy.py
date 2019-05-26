@@ -42,20 +42,92 @@ polnapol_został_wykorzystany = 0
 ###################################################################################################################
 ###################################################################################################################
 ###################################################################################################################
+
+
+def animacja():# Function for implementing the loading animation #source: https://www.geeksforgeeks.org/python-create-simple-animation-for-console-based-application/
+    # String to be displayed when the application is loading
+    load_str = "   milionerzy..."
+    ls_len = len(load_str)
+
+
+    # String for creating the rotating line
+    animation = "|/-\\"
+    anicount = 0
+
+    # used to keep the track of
+    # the duration of animation
+    counttime = 0
+
+    # pointer for travelling the loading string
+    i = 0
+
+    while (counttime != 52):
+
+        # used to change the animation speed
+        # smaller the value, faster will be the animation
+        time.sleep(0.075)
+
+        # converting the string to list
+        # as string is immutable
+        load_str_list = list(load_str)
+
+        # x->obtaining the ASCII code
+        x = ord(load_str_list[i])
+
+        # y->for storing altered ASCII code
+        y = 0
+
+        # if the character is "." or " ", keep it unaltered
+        # switch uppercase to lowercase and vice-versa
+        if x != 32 and x != 46:
+            if x>90:
+                y = x-32
+            else:
+                y = x + 32
+            load_str_list[i]= chr(y)
+
+        # for storing the resultant string
+        res =''
+        for j in range(ls_len):
+            res = res + load_str_list[j]
+
+        # displaying the resultant string
+        sys.stdout.write("\r"+res + animation[anicount])
+        sys.stdout.flush()
+
+        # Assigning loading string
+        # to the resultant string
+        load_str = res
+
+
+        anicount = (anicount + 1)% 4
+        i =(i + 1)% ls_len
+        counttime = counttime + 1
+
+    # for windows OS
+    if os.name =="nt":
+        os.system("cls")
+
+    # for linux / Mac OS
+    else:
+        os.system("clear")
+
 #funkcja ktora wyswietla sie na poczatku programu, przed pytaniami
-def animacja(): #source: https://gist.github.com/Y4suyuki/6805818
-        animation = "|/-\\"
-
-        for i in range(20):
-            time.sleep(0.1)
-            sys.stdout.write("\r" + animation[i % len(animation)])
-            sys.stdout.flush()
-        os.system('cls')
-
-
 def powitanie():
     animacja()
-    print(colored("\n\n         Witam Państwa!",'cyan'),"Mam na imię Ubert Hurbański i mam przyjemność powitać dzisiejszego zawodnika. \nZasady są następujące: 12 pytań do miliona, 2 progi gwarantowane: 1000 zł i 40 000 zł oraz 3 koła ratunkowe:\n                         telefon do przyjaciela, pytanie do publiczności i pół na pół.\n                                 Gramy o milion, bądźcie państwo z nami")
+    print(colored("\n\n         Witam Państwa!",'cyan'),"Mam na imię Ubert Hurbański i mam przyjemność powitać dzisiejszego zawodnika.")
+    time.sleep(1)
+    print("Zasady są następujące:",end='')
+    time.sleep(1)
+    print(" 12 pytań do miliona, 2 progi gwarantowane: 1000 zł i 40 000 zł oraz 3 koła ratunkowe:")
+    time.sleep(1)
+    print("                         telefon do przyjaciela,",end='')
+    time.sleep(1)
+    print(" pytanie do publiczności",end='')
+    time.sleep(1)
+    print(" i pół na pół.")
+    time.sleep(1)
+    print("                                   Gramy o milion, bądźcie państwo z nami!")
     time.sleep(1)
 ###################################################################################################################
 def telefon_do_przyjaciela(lista_pytan, wylosowane_pytanie):
@@ -153,6 +225,7 @@ def wyswietlanie_pytania(lista_pytan, numer_pytania):
     global lista_progow
     wyswietl_prog(lista_progow)
     print("Ubert Hurbański: Pytanie za",lista_progow[wskaznik_progu],"zł.")
+    time.sleep(1.5)
     print("")
     print(lista_pytan[numer_pytania][0])  #printowanie pytania - z listy (używając wylocowany numer porządkowy)
     for i in range(1, 5):     #printowanie 4!!! odpowiedzi do wyboru - z listy (używając wylocowany numer porządkowy)
@@ -169,7 +242,6 @@ def przyjmowanie_odp(lista_pytan,numer_pytania):
         print("\n")
         wybor_uzytkownika = input("Koła ratunkowe: 1 - telefon do przyjaciela; 2 - pol na pol; 3 - pytanie do publicznosci.\nPS.dla rezygnacji wciśnij \"X\".\nCo wybierasz?\n")  #wpisywanie odpowiedzi #jak poprosic o wpisanie "A" czy "a"?
         if wybor_uzytkownika == lista_pytan[numer_pytania][6] or wybor_uzytkownika == lista_pytan[numer_pytania][7]:   #sprawdzanie czy wpisana odpowiedz prawdziwa; MA BYĆ NA 6 i 7 MIEJSCU PORZĄDKOWYM(DLA KOMPUTERA NA 5 i 6) W LIŚCIE!! #są dwa możliwe warianty wpisania "A" czy "a" - dlatego robimy (żeby nie przekształcać potem input) odrazu możliwość "A" czy "a".
-            print("Ubert Hurbański: Brawo, to jest poprawna odpowiedź!")
             wskaznik_progu += 1
             if wskaznik_progu!=2 or wskaznik_progu!=7:
                 pass
@@ -349,6 +421,7 @@ def wyswietl_prog(lista_progow): #wyswietla progi i do kazdego dodaje kilka spac
             print("      500")
         if wskaznik_progu==0:
             print("\nUbert Hurbański: Zaczynajmy!\n")
+            time.sleep(1)
         else:
             tekstyg=["Ubert Hurbański: To się dzieje naprawdę!",
             "Ubert Hurbański: Świetnie! Przechodzimy do kolejnego pytania.",
@@ -356,10 +429,17 @@ def wyswietl_prog(lista_progow): #wyswietla progi i do kazdego dodaje kilka spac
             "Ubert Hurbański: Brawo! Przechodzimy do kolejnego pytania.",
             "Ubert Hurbański: To poprawna odpowiedź! Przechodzimy do kolejnego pytania.",
             "Ubert Hurbański: Myślę, że to pytanie Ci się spodoba.",
-            "Ubert Hurbański: To ciekawe pytanie!",
+            "Ubert Hurbański: Brawo, to jest poprawna odpowiedź!",
+            "Ubert Hurbański: Brawo, to jest poprawna odpowiedź!",
+            "Ubert Hurbański: Brawo, to jest poprawna odpowiedź!",
+            "Ubert Hurbański: Brawo, to jest poprawna odpowiedź!",
+            "Ubert Hurbański: Brawo, to jest poprawna odpowiedź!",
+            "Ubert Hurbański: Brawo, to jest poprawna odpowiedź!",
+            "Ubert Hurbański: Tak, to jest poprawna odpowiedź!",
             "Ubert Hurbański: Tutaj może przydać Ci się jedno z kół ratunkowych."]
             wybrany_tekst=random.randint(0,len(tekstyg)-1)
             print(tekstyg[wybrany_tekst])
+            time.sleep(1.5)
 ###################################################################################################################
 ###################################################################################################################
 ###################################################################################################################
@@ -388,10 +468,10 @@ while True:
         if przegrana==1:
             os.system('cls')
             wyswietl_prog(lista_progow)
-            print("\nBardzo mi przykro, przegrałeś grę! Odchodzisz z kwotą:",wskaznik_progu_gw)
+            print("\nBardzo mi przykro, przegrałeś grę! Odchodzisz z kwotą:",wskaznik_progu_gw,"zł.\nDziękujemy, że byliście Państwo z nami!")
             break
         elif rezygnacja==1:
             os.system('cls')
             wyswietl_prog(lista_progow)
-            print("Zrezygnowałeś z dalszej gry. Odchodzisz z kwotą:",lista_progow[wskaznik_progu])
+            print("Zrezygnowałeś z dalszej gry.\nOdchodzisz z kwotą:",lista_progow[wskaznik_progu],"zł.\nDziękujemy, że byliście Państwo z nami!")
             break
