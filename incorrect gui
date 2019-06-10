@@ -1,0 +1,67 @@
+from tkinter import *
+from tkinter import messagebox  ################################## wybor odpowiedzi, ale nie umiem jeszcze zrobić poprawnie :(
+glowne_okno = Tk()
+zadanie1 = Intvar()
+zadanie2 = Intvar()
+def akcja_przycisk():
+    if zadanie1.get()==1:
+        messagebox.showinfo("czy definitywnie chcesz wybrać tę odpowiedź?")
+    if zadanie2.get()==2:
+        messagebox.showinfo("czy to twój ostateczny wybór?")
+
+rprzycisk1=Radiobutton(glowne_okno, text= "A",
+variable=zadanie1, value=1)
+rprzycisk1.pack()
+rprzycisk2 =Radiobutton(glowne_okno, text="B",
+variable=zadanie1, value=2)
+rprzycisk2.pack()
+rprzycisk3 = Radiobutton(glowne_okno, text="C",
+variable=zadanie1, value=3)
+rprzycisk3.pack()
+rprzycisk4=Radiobutton(glowne_okno, text="D",
+variable=zadanie1, value=4)
+rprzycisk4.pack()
+przycisk=Button(glowne_okno, text="pytanie",
+command= akcja_przycisk)
+przycisk.pack()
+glowne_okno.mainloop
+
+
+
+from tkinter import *
+from tkinter import messagebox  
+import time
+def akcja_przycisk():
+    messagebox.showinfo(" Witam Państwa! Mam na imię Ubert Hurbański i mam przyjemność powitać dzisiejszego zawodnika.")
+    time.sleep(1)
+    messagebox.showinfo("Zasady są następujące:")
+    time.sleep(1)
+    messagebox.showinfo(" 12 pytań do miliona, 2 progi gwarantowane: 1000 zł i 40 000 zł oraz 3 koła ratunkowe:")
+    time.sleep(1)
+    messagebox.showinfo(" telefon do przyjaciela,")
+    time.sleep(1)
+    messagebox.showinfo(" pytanie do publiczności")
+    time.sleep(1)
+    messagebox.showinfo(" i pół na pół.")
+    time.sleep(1)
+    messagebox.showinfo(" Gramy o milion, bądźcie państwo z nami!\n")
+    time.sleep(1)
+glowne_okno=Tk()
+glowne_okno.title("milionerzy")
+glowne_okno.geometry("300x350")
+
+przycisk1=Button(glowne_okno, text= "powitanie", command = akcja_przycisk)
+przycisk1.pack(side=BOTTOM)
+glowne_okno.mainloop()
+
+
+
+def wyswietl_pytanie():
+    messagebox.showinfo("Pytanie za ") ############## wyswietl pytanie
+glowne_okno= Tk()
+glowne_okno.title("Milionerzy")
+glowne_okno.geometry("300x350")
+przycisk1=Button(glowne_okno, text = "Gramy o milion złotych. Oto pierwsze pytanie",
+command = wyswietl_pytanie)
+przycisk1.grid()
+glowne_okno.mainloop()
