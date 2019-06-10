@@ -1,8 +1,8 @@
 from tkinter import *
 from tkinter import messagebox  ################################## wybor odpowiedzi, ale nie umiem jeszcze zrobić poprawnie :(
 glowne_okno = Tk()
-zadanie1 = Intvar()
-zadanie2 = Intvar()
+zadanie1 = IntVar()
+zadanie2 = IntVar()
 def akcja_przycisk():
     if zadanie1.get()==1:
         messagebox.showinfo("czy definitywnie chcesz wybrać tę odpowiedź?")
