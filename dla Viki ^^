@@ -1,1 +1,13 @@
-#hejo
+from tkinter import *
+glowne_okno =Tk()
+
+
+przycisk_50_na_50=Buttom(glowne_okno, text ="50/50", fg ="red")
+przycisk_50_na_50.grid(row=0,column=0)
+przycisk_wyjsc_z_programu=Butom(glowne_okno, text ="Wyjsc z programu")
+przycisk_wysc_z_programuu.grid(row=0, column=1)
+
+
+
+
+glowne_okno.mainloop()
