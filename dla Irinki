@@ -1,26 +1,87 @@
 from tkinter import *
 from tkinter import messagebox  
+
+#######################################################
 lista_pytan = [
 ["Jakiego koloru były smerfy?", "A. niebieskiego", "B. różowego", "C. czerwony", "D. zielonego","A. niebieskiego", "A", "a"],
 ["Która z planet ma pierścienie?", "A. Pluton", "B. Saturn", "C. Neptun", "D. Merkury", "B. Saturn", "B", "b"],
 ["Jaka część mowy odpowiada na pytania: kto, co?", "A. przymiotnik", " B. czasownik", "C. rzeczownik", "D. przysłówek","C.rzeczownik", "C", "c"],
 ["Kogo uratowała Calineczka?", "A. kreta", "B. jaskółkę", "D. pingwina" , "D. żabę", "B. jaskółkę", "B", "b"]]
+
+def przyjmowanie_odp(lista_pytan,numer_pytania):
+    global przegrana
+    global rezygnacja
+    global wskaznik_progu
+    global wskaznik_progu_gw
+    while True:
+        print("\n")
+        wybor_uzytkownika = input("Koła ratunkowe: 1 - telefon do przyjaciela; 2 - pol na pol; 3 - pytanie do publicznosci.\nDla rezygnacji wciśnij \"X\".\nCo wybierasz?\n")  #wpisywanie odpowiedzi #jak poprosic o wpisanie "A" czy "a"?
+        if wybor_uzytkownika == lista_pytan[numer_pytania][6] or wybor_uzytkownika == lista_pytan[numer_pytania][7]:   #sprawdzanie czy wpisana odpowiedz prawdziwa; MA BYĆ NA 6 i 7 MIEJSCU PORZĄDKOWYM(DLA KOMPUTERA NA 5 i 6) W LIŚCIE!! #są dwa możliwe warianty wpisania "A" czy "a" - dlatego robimy (żeby nie przekształcać potem input) odrazu możliwość "A" czy "a".
+            wskaznik_progu += 1
+            if wskaznik_progu!=2 or wskaznik_progu!=7:
+                pass
+            if wskaznik_progu==2:
+                wskaznik_progu_gw=1000
+            if wskaznik_progu==7:
+                wskaznik_progu_gw=40000
+            print("Ubert Hurbański: Czy to poprawna odpowiedź?")
+            for i in range(3,0,-1): #odlicza 321 po prawidlowej odpowiedzi, end="\r" znaczy ze nadpisuje aktualną linijkę, dlatego licznik wyswietla sie ladnie w jednym miejscu
+                print(i,end="\r")
+                time.sleep(0.4)
+            if wskaznik_progu==5+random.randint(-2,2) or wskaznik_progu==11:
+                reklama()
+            os.system('cls')
+            break
+        elif wybor_uzytkownika == '1':
+            global telefon_został_wykorzystany
+            if telefon_został_wykorzystany == 0:
+                telefon_do_przyjaciela(lista_pytan,numer_pytania)
+                telefon_został_wykorzystany = 1
+            else:
+                print("Już wykorzystałeś/aś koło ratunkowe \"Telefon\" jeden raz - więcej nie wolno")
+        elif wybor_uzytkownika =='2':
+            global polnapol_został_wykorzystany
+            if polnapol_został_wykorzystany == 0:
+                kolo_pol_na_pol(lista_pytan,numer_pytania)
+                polnapol_został_wykorzystany = 1
+            else:
+                print("Już wykorzystałeś/aś koło ratunkowe \"Pół na pół\" jeden raz - więcej nie wolno")
+        elif wybor_uzytkownika =='3':
+            global pytdopub_został_wykorzystany
+            if pytdopub_został_wykorzystany == 0:
+                publicznosc(lista_pytan,numer_pytania)
+                pytdopub_został_wykorzystany = 1
+            else:
+                print("Już wykorzystałeś/aś koło ratunkowe \"Pytanie do publiczności\" jeden raz - więcej nie wolno")
+        elif wybor_uzytkownika =='X' or wybor_uzytkownika=='x':
+            rezygnacja=1
+            break
+        elif not wybor_uzytkownika in "ABCD123Xabcdx" or wybor_uzytkownika=="": #jeśli gracz wpisał inny znak niż dozwolone, napisz mu że zły klawisz
+            print("Niepoprawna komenda, spróbuj ponownie.")
+        else:
+            przegrana=1
+            break
+######################## z głównego kodu  #########################################################
+
 okno_gry = Tk()
 
 wartosc = IntVar()
-
-def przyciski_telefon_do_przyjaciela(): ###ZARA ZAMIENIĆ NA "RN_LOS"
+def przyciski_telefon_do_przyjaciela(): ###ZeRA ZAMIENIĆ NA "RN_LOS"
     if wartosc.get() == 1 and lista_pytan[0][1] == lista_pytan[0][5]:   #jeśli wcisnąłeś "A" ##(po and) jeśli odpowiedź o danej wartości jest prawdziwą odpowiedzią (na 5 miejscu w liście)
-        #wywoływa się funkcję z następnym pytaniem i to się toczy
+        przegrana = 0
+        return przegrana #po tym wywoływa się funkcję z następnym pytaniem i to się toczy
     elif wartosc.get() == 2 and lista_pytan[0][2] == lista_pytan[0][5]:  #jeśli wcisnąłeś "B"
-        #
+        przegrana = 0
+        return przegrana
     elif wartosc.get() == 3 and lista_pytan[0][3] == lista_pytan[0][5]:  #jeśli wcisnąłeś "C"
-        #
+        przegrana = 0
+        return przegrana
     elif wartosc.get() == 4 and lista_pytan[0][4] == lista_pytan[0][5]:  #jeśli wcisnąłeś "B"
-        #
+        przegrana = 0
+        return przegrana
     else: #czyli jeśli wybierasz zlą odp -- przedrane
-        #wywoływa się funkcje która poinformuje o przegnaniu i zakońzy gre
-        
+        przegrana = 1
+        return przegrana  #po tym wywoływa się funkcje która poinformuje o przegnaniu i zakońzy gre
 
 przyciskA = Radiobutton(okno_gry, text = lista[0][1], variable = wartosc, value = 1, command = przyciski_telefon_do_przyjaciela)#naszeOkno\\pozycji w liście dla A\\wartość\\znaczenie\\funkcja
 przyciskA.grid(row = 1, column = 1)
