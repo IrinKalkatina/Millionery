@@ -8,14 +8,15 @@ lista_pytan = [
 okno_gry = Tk()
 
 wartosc = IntVar()
-def przyciski_telefon_do_przyjaciela():
-    if wartosc.get() == 1:   #jeśli wcisnąłeś "A"
+
+def przyciski_telefon_do_przyjaciela(): ###ZARA ZAMIENIĆ NA "RN_LOS"
+    if wartosc.get() == 1 and lista_pytan[0][1] == lista_pytan[0][5]:   #jeśli wcisnąłeś "A" ##(po and) jeśli odpowiedź o danej wartości jest prawdziwą odpowiedzią (na 5 miejscu w liście)
         messagebox.showinfo("")
-    elif wartosc.get() == 2:  #jeśli wcisnąłeś "B"
+    elif wartosc.get() == 2 and lista_pytan[0][2] == lista_pytan[0][5]:  #jeśli wcisnąłeś "B"
         messagebox.showinfo
-    elif wartosc.get() == 3:  #jeśli wcisnąłeś "C"
+    elif wartosc.get() == 3 and lista_pytan[0][3] == lista_pytan[0][5]:  #jeśli wcisnąłeś "C"
         messagebox.showinfo
-    elif wartosc.get() == 4:  #jeśli wcisnąłeś "B"
+    elif wartosc.get() == 4 and lista_pytan[0][4] == lista_pytan[0][5]:  #jeśli wcisnąłeś "B"
         messagebox.showinfo
 
 przyciskA = Radiobutton(okno_gry, text = lista[0][1], variable = wartosc, value = 1, command = przyciski_telefon_do_przyjaciela)#naszeOkno\\pozycji w liście dla A\\wartość\\znaczenie\\funkcja
