@@ -1,0 +1,17 @@
+from tkinter import *
+from tkinter import messagebox  
+
+wartosc = IntVar()
+def przyciski_telefon_do_przyjaciela():
+    if wartosc.get() == 1:   #jeśli wcisnąłeś "A"
+        messagebox.showinfo("")
+    elif wartosc.get() == 2:  #jeśli wcisnąłeś "B"
+        messagebox.showinfo
+    elif wartosc.get() == 3:  #jeśli wcisnąłeś "C"
+        messagebox.showinfo
+    elif wartosc.get() == 4:  #jeśli wcisnąłeś "B"
+        messagebox.showinfo
+
+przyciskA = Radiobutton(okno_gry, text = lista[0][1], variable = wartosc, value = 1, command = przyciski_telefon_do_przyjaciela)
+
+glowne_okno.mainloop
