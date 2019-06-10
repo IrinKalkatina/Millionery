@@ -1,3 +1,5 @@
+###nałezy grid zamienic na place
+
 from tkinter import *
 from tkinter import messagebox  
 
