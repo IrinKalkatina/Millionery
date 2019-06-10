@@ -1,5 +1,11 @@
 from tkinter import *
-from tkinter import messagebox  
+from tkinter import messagebox  ################################## wybor odpowiedzi, ale nie umiem jeszcze zrobić poprawnie :(
+lista_pytan = [
+["Jakiego koloru były smerfy?", "A. niebieskiego", "B. różowego", "C. czerwony", "D. zielonego","A. niebieskiego", "A", "a"],
+["Która z planet ma pierścienie?", "A. Pluton", "B. Saturn", "C. Neptun", "D. Merkury", "B. Saturn", "B", "b"],
+["Jaka część mowy odpowiada na pytania: kto, co?", "A. przymiotnik", " B. czasownik", "C. rzeczownik", "D. przysłówek","C.rzeczownik", "C", "c"],
+["Kogo uratowała Calineczka?", "A. kreta", "B. jaskółkę", "D. pingwina" , "D. żabę", "B. jaskółkę", "B", "b"]]
+okno_gry = Tk()
 
 wartosc = IntVar()
 def przyciski_telefon_do_przyjaciela():
@@ -13,5 +19,8 @@ def przyciski_telefon_do_przyjaciela():
         messagebox.showinfo
 
 przyciskA = Radiobutton(okno_gry, text = lista[0][1], variable = wartosc, value = 1, command = przyciski_telefon_do_przyjaciela)
+przyciskB = Radiobutton(okno_gry, text = lista[0][2], variable = wartosc, value = 2, command = przyciski_telefon_do_przyjaciela)
+przyciskC = Radiobutton(okno_gry, text = lista[0][3], variable = wartosc, value = 3, command = przyciski_telefon_do_przyjaciela)
+przyciskD = Radiobutton(okno_gry, text = lista[0][4], variable = wartosc, value = 4, command = przyciski_telefon_do_przyjaciela)
 
 glowne_okno.mainloop
