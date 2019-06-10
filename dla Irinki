@@ -11,13 +11,16 @@ wartosc = IntVar()
 
 def przyciski_telefon_do_przyjaciela(): ###ZARA ZAMIENIĆ NA "RN_LOS"
     if wartosc.get() == 1 and lista_pytan[0][1] == lista_pytan[0][5]:   #jeśli wcisnąłeś "A" ##(po and) jeśli odpowiedź o danej wartości jest prawdziwą odpowiedzią (na 5 miejscu w liście)
-        messagebox.showinfo("")
+        #wywoływa się funkcję z następnym pytaniem i to się toczy
     elif wartosc.get() == 2 and lista_pytan[0][2] == lista_pytan[0][5]:  #jeśli wcisnąłeś "B"
-        messagebox.showinfo
+        #
     elif wartosc.get() == 3 and lista_pytan[0][3] == lista_pytan[0][5]:  #jeśli wcisnąłeś "C"
-        messagebox.showinfo
+        #
     elif wartosc.get() == 4 and lista_pytan[0][4] == lista_pytan[0][5]:  #jeśli wcisnąłeś "B"
-        messagebox.showinfo
+        #
+    else: #czyli jeśli wybierasz zlą odp -- przedrane
+        #wywoływa się funkcje która poinformuje o przegnaniu i zakońzy gre
+        
 
 przyciskA = Radiobutton(okno_gry, text = lista[0][1], variable = wartosc, value = 1, command = przyciski_telefon_do_przyjaciela)#naszeOkno\\pozycji w liście dla A\\wartość\\znaczenie\\funkcja
 przyciskA.grid(row = 1, column = 1)
