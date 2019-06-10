@@ -19,8 +19,15 @@ def przyciski_telefon_do_przyjaciela():
         messagebox.showinfo
 
 przyciskA = Radiobutton(okno_gry, text = lista[0][1], variable = wartosc, value = 1, command = przyciski_telefon_do_przyjaciela)#naszeOkno\\pozycji w liście dla A\\wartość\\znaczenie\\funkcja
+przyciskA.grid(row = 1, column = 1)
+
 przyciskB = Radiobutton(okno_gry, text = lista[0][2], variable = wartosc, value = 2, command = przyciski_telefon_do_przyjaciela)
+przyciskB.grid(row = 1, column = 2)
+
 przyciskC = Radiobutton(okno_gry, text = lista[0][3], variable = wartosc, value = 3, command = przyciski_telefon_do_przyjaciela)
+przyciskC.grid(row = 1, column = 3)
+
 przyciskD = Radiobutton(okno_gry, text = lista[0][4], variable = wartosc, value = 4, command = przyciski_telefon_do_przyjaciela)
+przyciskD.grid(row = 1, column = 4)
 
 glowne_okno.mainloop
