@@ -1,3 +1,27 @@
+def koniec_gry(): #funkcja ktora czysci caly ekran (niszczy wszystkie przyciski i napisy)
+    tytul.destroy()
+    progi.destroy()
+    przyciskA.destroy()
+    przyciskB.destroy()
+    przyciskC.destroy()
+    przyciskD.destroy()
+    przycisk_50_na_50.destroy()
+    przycisk_telefon_do_przyjaciela.destroy()
+    przycisk_pytanie_do_publicznosci.destroy()
+
+def zrezygnuj(): #funkcja ktora zmienia zmienna rezygnacja na 1
+    global rezygnacja
+    rezygnacja=1
+    print("rezygnacja:", rezygnacja) #testowo niech wyswietla w konsoli, zeby bylo widac czy cos sie zmienia
+
+
+def wywolaj_tel_do_prz():
+    telefon_do_przyjaciela(lista_pytan,aktualne_pytanie)
+def wywolaj_50_na_50():
+    kolo_pol_na_pol(lista_pytan,aktualne_pytanie)
+def wywolaj_pyt_do_pub():
+    publicznosc(lista_pytan,aktualne_pytanie)
+
 ###################################################################################
 #glowne ustawienia
 import random
@@ -6,6 +30,7 @@ import os
 import sys
 from colorama import init, Style
 from termcolor import colored
+from funkcje import *
 init()
 lista_pytan = [
 ["Jakiego koloru były smerfy?", "A. niebieskiego", "B. różowego", "C. czerwony", "D. zielonego","A. niebieskiego", "A", "a"],
@@ -29,35 +54,36 @@ lista_pytan = [
 ["Które z określeń nie oznacza wysłannika?", "A. emisariusz", "B. kurier", "C. poseł", "D. ordynat", "D. ordynat", "D", "d"],
 ["Jakie włoskie miasto było tłem romansu Romea i Julii?", "A. Werona", "B. Wenecja", "C. Florencja", "D. Palermo", "A. Werona", "A", "a"]
 ]
-rezygnacja=0
+###################################################################################
+lista_progow = ["500","1 000","2 000","5 000","10 000","20 000","40 000","75 000","125 000","250 000","500 000","1 000 000","0"]
+wskaznik_progu = 0
+wskaznik_progu_gw = 0
+###################################################################################
+przegrana = 0
+rezygnacja = 0
+telefon_został_wykorzystany = 0
+pytdopub_został_wykorzystany = 0
+polnapol_został_wykorzystany = 0
 ###################################################################################
 #ustawienia GUI
 from tkinter import *
 from tkinter import ttk
 
+
 glowneOkno=Tk()
 glowneOkno.title("Milionerzy v2") #górna belka głównego okna
-glowneOkno.geometry("720x600") #rozmiar głownego okna
+glowneOkno.geometry("850x600") #rozmiar głownego okna
 
-def koniec_gry(): #funkcja ktora czysci caly ekran (niszczy wszystkie przyciski i napisy)
-    tytul.destroy()
-    przyciskA.destroy()
-    przyciskB.destroy()
-    przyciskC.destroy()
-    przyciskD.destroy()
-    przycisk_50_na_50.destroy()
-    przycisk_telefon_do_przyjaciela.destroy()
-    przycisk_pytanie_do_publicznosci.destroy()
-
-
-#tekst w oknie
+###################################################################################
+#napis MILIONEZY w oknie
 tytul = Label(glowneOkno, text='MILIONERZY', font=('times', 24, 'bold')) #gdzie wstawic tekst, jaki oraz jego czcionka i wielkosc
 tytul.place(relx=0.5, rely=0.1, anchor='s') #zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
 ###################################################################################
-def zrezygnuj(): #funkcja ktora zmienia zmienna rezygnacja na 1
-    global rezygnacja
-    rezygnacja=1
-    print("rezygnacja:", rezygnacja) #testowo niech wyswietla w konsoli, zeby bylo widac czy cos sie zmienia
+#okno z dialogiami
+dialogi = Text(glowneOkno)
+dialogi.insert(END, "hey")
+dialogi.place(relx=0.1, rely=0.5, anchor='s',width=150,height=250)
+
 ###################################################################################
 #odpowiedzi
 przyciskA=Button(glowneOkno,text="Odpowiedź A",background='cyan',borderwidth=8) #background to kolor przycisku, borderwidth to taka mini ramka naokolo przycisku
@@ -66,7 +92,7 @@ przyciskA.place(relx=0.4, rely=0.7, anchor='s')#zwykłe .place, ale zamiast poda
 przyciskB=Button(glowneOkno,text="Odpowiedź B",background='cyan',borderwidth=8)#background to kolor przycisku, borderwidth to taka mini ramka naokolo przycisku
 przyciskB.place(relx=0.6, rely=0.7, anchor='s')#zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
 
-przyciskC=Button(glowneOkno,text="Odpowiedź C",background='cyan',borderwidth=8)#background to kolor przycisku, borderwidth to taka mini ramka naokolo 
+przyciskC=Button(glowneOkno,text="Odpowiedź C",background='cyan',borderwidth=8)#background to kolor przycisku, borderwidth to taka mini ramka naokolo
 przyciskC.place(relx=0.4, rely=0.8, anchor='s')#zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
 
 przyciskD=Button(glowneOkno,text="Odpowiedź D",background='cyan',borderwidth=8)#background to kolor przycisku, borderwidth to taka mini ramka naokolo przycisku
@@ -75,13 +101,13 @@ przyciskD.place(relx=0.6, rely=0.8, anchor='s')#zwykłe .place, ale zamiast poda
 
 ###################################################################################
 #koła
-przycisk_50_na_50=Button(glowneOkno, text ="50/50",background='cyan',borderwidth=8)#background to kolor przycisku, borderwidth to taka mini ramka naokolo przycisku
+przycisk_50_na_50=Button(glowneOkno, text ="50/50",background='cyan',borderwidth=8,command=wywolaj_50_na_50)#background to kolor przycisku, borderwidth to taka mini ramka naokolo przycisku
 przycisk_50_na_50.place(relx=0.85, rely=0.15, anchor='s')#zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
 
-przycisk_telefon_do_przyjaciela=Button(glowneOkno, text="Tel. do prz.",background='cyan',borderwidth=8)#background to kolor przycisku, borderwidth to taka mini ramka naokolo przycisku
+przycisk_telefon_do_przyjaciela=Button(glowneOkno, text="Tel. do prz.",background='cyan',borderwidth=8,command=wywolaj_tel_do_prz)#background to kolor przycisku, borderwidth to taka mini ramka naokolo przycisku
 przycisk_telefon_do_przyjaciela.place(relx=0.75, rely=0.15, anchor='s')#zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
 
-przycisk_pytanie_do_publicznosci=Button(glowneOkno, text="Pyt. do pub.",background='cyan',borderwidth=8)#background to kolor przycisku, borderwidth to taka mini ramka naokolo 
+przycisk_pytanie_do_publicznosci=Button(glowneOkno, text="Pyt. do pub.",background='cyan',borderwidth=8, command=wywolaj_pyt_do_pub)#background to kolor przycisku, borderwidth to taka mini ramka naokolo
 przycisk_pytanie_do_publicznosci.place(relx=0.95, rely=0.15, anchor='s')#zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
 ###################################################################################
 
@@ -93,4 +119,36 @@ przycisk_wyjsc_z_programu.place(relx=0.90, rely=0.99, anchor='s')#zwykłe .place
 
 przycisk_rezygnacja=Button(glowneOkno, text ="Zrezygnuj", command=lambda:[koniec_gry(),zrezygnuj()]) #ustawienia przycisku (lambda wyglada strasznie ale po prostu wywoluje dwie funkcje naraz, i tyle)
 przycisk_rezygnacja.place(relx=0.9, rely=0.93, anchor='s')#zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
+progi = Label(glowneOkno, text='1 000 000\n500 000\n250 000\n125 000\n75 000\n40 000\n20 000\n10 000\n5 000\n2 000\n1 000\n500') #gdzie wstawic tekst, jaki oraz jego czcionka i wielkosc
+progi.place(relx=0.85, rely=0.60, anchor='s')
+
+
+rozmiar_listy = len(lista_pytan)
+kolejnosc_pytan = generacja_kolejnosci_pytan(rozmiar_listy)
+
+obecny = 0
+
 glowneOkno.mainloop() #odpal cale okno
+while True:
+    if wskaznik_progu==12: #jeśli gracz odpowiedzial na ostatnie pytanie, wyswietl ze wygral milion i zakoncz program
+        wyswietl_prog(lista_progow)
+        print("Ubert Hurbański: Brawo, to prawidłowa odpowiedź na ostatnie pytanie!")
+        print("Ubert Hurbański: Właśnie wygrałeś MILION ZŁOTYCH!\n\nDziękujemy, że byliście Państwo z nami!")
+        break
+    if przegrana==0 and rezygnacja==0: #jesli przegrana rowna sie zero (czyli nie przegral), wyswietl kolejne pytanie
+        aktualne_pytanie=kolejnosc_pytan[obecny]
+        obecny += 1
+        wyswietlanie_pytania(lista_pytan,aktualne_pytanie)
+        przyjmowanie_odp(lista_pytan,aktualne_pytanie)
+    else: #jesli przegrana rowna sie jeden (czyli jesli przegral) lub rezygnacja rowna sie jeden (czyli jesli zrezygnowal) to wyswietl stosowny komunikat i zakoncz program
+        if przegrana==1:
+            os.system('cls')
+            wyswietl_prog(lista_progow)
+            print("\nBardzo mi przykro, przegrałeś grę! Odchodzisz z kwotą:",wskaznik_progu_gw,"zł.\nDziękujemy, że byliście Państwo z nami!")
+            break
+        elif rezygnacja==1:
+            os.system('cls')
+            wyswietl_prog(lista_progow)
+            print("Zrezygnowałeś z dalszej gry.\nOdchodzisz z kwotą:",lista_progow[wskaznik_progu],"zł.\nDziękujemy, że byliście Państwo z nami!")
+            break
+glowneOkno.mainloop()
