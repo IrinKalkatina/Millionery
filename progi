@@ -1,0 +1,15 @@
+from tkinter import *
+from tkinter import messagebox
+
+import time
+glowneOkno= Tk()
+def akcja_zobacz_prog():
+    messagebox.showinfo("twój próg to", wskaznik_progu)
+
+
+przycisk_wyswietl_prog= Button(glowneOkno, text= "\Milionerzy\n 1 000 000\n 500 000\n 250 000\n 125 000\n \n 75 000\n 40 000\n 20 000\n 10 000\n 5 000\n 2 000\n 1 000\n 500\n ", command= akcja_zobacz_prog) #wyswietla progi i do kazdego dodaje kilka spacji po to zeby bylo wysrodkowane; podswietla progi gwarantowane; podswietla kase za aktualne pytanie
+przycisk_wyswietl_prog.grid()
+    #  - jeśli zostanie wywołana podczas gry, wtedy wyświetla listę progów i podświetla aktualne pytanie
+    #  - jeśli zostanie wywołana po przegranej, wtedy wyświetła całą listę progów na czerwono
+    #  - jeśli zostanie wywołana po rezygnacji lub gdy się wygra, wtedy wyświetla listę progów i podświetla na zielono ile zabraliśmy do domu
+glowneOkno.mainloop()
