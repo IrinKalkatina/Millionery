@@ -61,25 +61,25 @@ def zrezygnuj(): #funkcja ktora zmienia zmienna rezygnacja na 1
 ###################################################################################
 #odpowiedzi
 przyciskA=Button(glowneOkno,text="Odpowiedź A",background='cyan',borderwidth=8) #background to kolor przycisku, borderwidth to taka mini ramka naokolo przycisku
-przyciskA.place(relx=0.2, rely=0.7, anchor='s')#zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
+przyciskA.place(relx=0.4, rely=0.7, anchor='s')#zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
 
 przyciskB=Button(glowneOkno,text="Odpowiedź B",background='cyan',borderwidth=8)#background to kolor przycisku, borderwidth to taka mini ramka naokolo przycisku
 przyciskB.place(relx=0.6, rely=0.7, anchor='s')#zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
 
 przyciskC=Button(glowneOkno,text="Odpowiedź C",background='cyan',borderwidth=8)#background to kolor przycisku, borderwidth to taka mini ramka naokolo 
-przyciskC.place(relx=0.3, rely=0.8, anchor='s')#zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
+przyciskC.place(relx=0.4, rely=0.8, anchor='s')#zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
 
 przyciskD=Button(glowneOkno,text="Odpowiedź D",background='cyan',borderwidth=8)#background to kolor przycisku, borderwidth to taka mini ramka naokolo przycisku
-przyciskD.place(relx=0.6, rely=0.9, anchor='s')#zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
+przyciskD.place(relx=0.6, rely=0.8, anchor='s')#zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
 ###################################################################################
 
 ###################################################################################
 #koła
 przycisk_50_na_50=Button(glowneOkno, text ="50/50",background='cyan',borderwidth=8)#background to kolor przycisku, borderwidth to taka mini ramka naokolo przycisku
-przycisk_50_na_50.place(relx=0.68, rely=0.15, anchor='s')#zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
+przycisk_50_na_50.place(relx=0.85, rely=0.15, anchor='s')#zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
 
 przycisk_telefon_do_przyjaciela=Button(glowneOkno, text="Tel. do prz.",background='cyan',borderwidth=8)#background to kolor przycisku, borderwidth to taka mini ramka naokolo przycisku
-przycisk_telefon_do_przyjaciela.place(relx=0.78, rely=0.15, anchor='s')#zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
+przycisk_telefon_do_przyjaciela.place(relx=0.75, rely=0.15, anchor='s')#zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
 
 przycisk_pytanie_do_publicznosci=Button(glowneOkno, text="Pyt. do pub.",background='cyan',borderwidth=8)#background to kolor przycisku, borderwidth to taka mini ramka naokolo 
 przycisk_pytanie_do_publicznosci.place(relx=0.95, rely=0.15, anchor='s')#zwykłe .place, ale zamiast podawać x oraz y pixelowo, to podajemy je procentowo, anchor nie zmienia za wiele ale musi zostac
