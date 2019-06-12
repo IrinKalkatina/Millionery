@@ -1,5 +1,6 @@
 def koniec_gry(): #funkcja ktora czysci caly ekran (niszczy wszystkie przyciski i napisy)
     tytul.destroy()
+    dialogi.destroy()
     progi.destroy()
     przyciskA.destroy()
     przyciskB.destroy()
